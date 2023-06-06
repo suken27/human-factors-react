@@ -5,7 +5,6 @@ node {
     }
     stage('Environment') {
       sh 'git --version'
-      echo "Branch: ${env.BRANCH_NAME}"
       sh 'docker -v'
       sh 'printenv'
     }
@@ -19,12 +18,10 @@ node {
       sh 'docker rmi react-test'
     }
     stage('Deploy'){
-      if(env.BRANCH_NAME == 'master'){
         sh 'docker build -t react-app --no-cache .'
         sh 'docker tag react-app localhost:5000/react-app'
         sh 'docker push localhost:5000/react-app'
         sh 'docker rmi -f react-app localhost:5000/react-app'
-      }
     }
   }
   catch (err) {

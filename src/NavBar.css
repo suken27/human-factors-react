@@ -1,0 +1,44 @@
+.NavBar {
+    background-color: aliceblue;
+    height: 50px;
+    align-items: center;
+    padding: 5px;
+}
+
+.NavBar-left {
+    display: inline-block;
+    text-align: left;
+    width: 50%;
+    height: 100%;
+}
+
+.NavBar-hamburguer {
+    display: inline-block;
+    height: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.NavBar-home-link {
+
+}
+
+.NavBar-logo {
+    height: 50px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.NavBar-right {
+    height: 100%;
+    display: inline-block;
+    text-align: right;
+    width: 50%;
+}
+
+.NavBar-settings {
+    height: 40px;
+    vertical-align: baseline;
+}

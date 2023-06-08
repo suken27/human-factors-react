@@ -1,0 +1,12 @@
+.FullScreen {
+    display: flex;
+    flex-flow: column;
+    height: 100vh;
+}
+
+.FullScreen-belowNavBar {
+    background-color: brown;
+    display: flex;
+    flex-flow: row;
+    flex: 9 9 auto;
+}

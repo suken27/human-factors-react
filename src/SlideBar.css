@@ -1,0 +1,12 @@
+.SlideBar {
+    background-color: blueviolet;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 70px;
+}
+
+.SlideBar-icon {
+    padding: 15px;
+    height: 40px;
+}

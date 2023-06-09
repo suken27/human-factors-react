@@ -1,3 +1,12 @@
 .MainScreen {
     flex: 15 15 auto;
 }
+
+.MainScreen-content {
+    size: auto;
+    padding: 50px;
+}
+
+.MainScreen-stub {
+    width: 100%;
+}

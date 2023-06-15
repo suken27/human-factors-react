@@ -68,7 +68,6 @@ class GraphComponent extends Component {
     render() {
         return (
             <div className='GraphComponent'>
-                
             </div>
         );
     }

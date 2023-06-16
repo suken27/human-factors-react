@@ -4,6 +4,7 @@ import settings from './settings.svg'
 import './NavBar.css'
 
 function NavBar() {
+
     return (
         <div className="NavBar">
             <div className="NavBar-left">

@@ -17,10 +17,11 @@ node {
         sh 'docker rmi -f react-app localhost:5000/react-app'
     }
     stage('Deploy'){
-      sh """
-        if [ '\$( docker container inspect -f '{{.State.Status}}' ${CONTAINER_NAME} )' = 'running' ]
-        then docker stop ${CONTAINER_NAME}
-       """
+			def container_status = sh "docker container inspect -f '{{.State.Status}}' ${CONTAINER_NAME}"
+			if (container_status == 'running') {
+				echo "Container ${CONTAINER_NAME} is already running. Stopping and removing container to start it again."
+				sh "docker stop ${CONTAINER_NAME}"
+			}
       sh "docker run --rm -d -p 3000:3000 --name ${CONTAINER_NAME} localhost:5000/react-app:latest"
     }
   }

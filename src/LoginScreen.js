@@ -1,6 +1,6 @@
-import './LoginScreen.css'
-import users from './users.svg'
-import logo from './logo.svg'
+import './LoginScreen.css';
+import logo from './logo.svg';
+import users from './users.svg';
 
 export default function LoginScreen() {
     return (
@@ -19,7 +19,7 @@ export default function LoginScreen() {
                     <button type='submit' className='LoginScreen-right-login-form-button'>Login</button>
                 </form>
                 <div className='LoginScreen-right-signup'>
-                    <p>Not a member?</p><a href='/signup'>Sign up</a>
+                    <p>Not a member?</p><a className='LoginScreen-right-signup-button' href='/signup'>Sign up</a>
                 </div>
             </div>
         </div>

@@ -10,3 +10,12 @@
     padding: 15px;
     height: 40px;
 }
+
+.SlideBar-button {
+    padding: 15px;
+    height: 40px;
+}
+
+.SlideBar-button-icon {
+    height: 100%;
+}

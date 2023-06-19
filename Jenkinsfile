@@ -18,7 +18,7 @@ node {
     }
     stage('Deploy'){
       sh """
-        if [ '$( docker container inspect -f '{{.State.Status}}' ${CONTAINER_NAME} )' = 'running' ]
+        if [ '\$( docker container inspect -f '{{.State.Status}}' ${CONTAINER_NAME} )' = 'running' ]
         then docker stop ${CONTAINER_NAME}
        """
       sh "docker run --rm -d -p 3000:3000 --name ${CONTAINER_NAME} localhost:5000/react-app:latest"

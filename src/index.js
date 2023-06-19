@@ -1,12 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import FullScreen from './FullScreen'
+import ErrorPage from './error-page';
+import LoginScreen from './LoginScreen';
+import SignupScreen from './SignupScreen';
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <FullScreen/>,
+        errorElement: <ErrorPage/>,
+    },
+    {
+        path: "login",
+        element: <LoginScreen />
+    },
+    {
+        path: "signup",
+        element: <SignupScreen />
+    }
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <App />
+    <RouterProvider router={router} />
 );
 
 // If you want to start measuring performance in your app, pass a function

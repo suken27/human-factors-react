@@ -1,4 +1,4 @@
-.LoginScreen {
+.SignupScreen {
     display: flex;
     flex-flow: row;
     height: 100vh;
@@ -6,17 +6,17 @@
     background-color: aquamarine;
 }
 
-.LoginScreen-left {
+.SignupScreen-left {
     margin-top: auto;
     margin-bottom: auto;
     width: 50%;
 }
 
-.LoginScreen-left-icon {
+.SignupScreen-left-icon {
     height: 400px;
 }
 
-.LoginScreen-middle {
+.SignupScreen-middle {
     width: 1px;
     height: 60%;
     background-color: white;
@@ -24,7 +24,7 @@
     margin-bottom: auto;
 }
 
-.LoginScreen-right {
+.SignupScreen-right {
     margin-top: auto;
     margin-bottom: auto;
     display: flex;
@@ -32,19 +32,19 @@
     width: 50%;
 }
 
-.LoginScreen-right-icon {
+.SignupScreen-right-icon {
     height: 200px;
     margin-bottom: 40px;
 }
 
-.LoginScreen-right-login-form {
+.SignupScreen-right-signup-form {
     display: flex;
     flex-flow: column;
     width: 70%;
     margin: auto;
 }
 
-.LoginScreen-right-login-form-input {
+.SignupScreen-right-signup-form-input {
     margin: 10px;
     height: 20px;
     background-color: #f1f1f1;
@@ -53,12 +53,12 @@
     border-radius: 5px;
 }
 
-.LoginScreen-right-login-form-input:focus {
+.SignupScreen-right-signup-form-input:focus {
     background-color: #ddd;
     outline: none;
 }
 
-.LoginScreen-right-login-form-button {
+.SignupScreen-right-signup-form-button {
     width: 40%;
     height: 40px;
     margin: auto;
@@ -69,18 +69,6 @@
     margin-top: 30px;
 }
 
-.LoginScreen-right-login-form-button:hover {
+.SignupScreen-right-signup-form-button:hover {
     opacity: 1;
-}
-
-.LoginScreen-right-signup {
-    display: flex;
-    flex-direction: row;
-    margin: auto;
-}
-
-a {
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 10px;
 }

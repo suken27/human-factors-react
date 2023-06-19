@@ -1,7 +1,6 @@
 .FullScreen {
     display: flex;
     flex-flow: column;
-    height: 100vh;
 }
 
 .FullScreen-belowNavBar {

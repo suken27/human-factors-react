@@ -13,6 +13,7 @@ node {
         } else {
           sh 'exit 0'
         }
+      }
     }
     stage('Environment') {
       sh 'git --version'

@@ -6,7 +6,6 @@ node {
 			def container_exists = sh ( script: "docker container inspect -f '{{.State.Status}}' ${CONTAINER_NAME}", returnStatus: true )
 			if (container_exists == 0) {
 				def container_status = sh ( script: "docker container inspect -f '{{.State.Status}}' ${CONTAINER_NAME}", returnStdout: true )
-				echo "Container status: ${container_status}"
 				if ( ${container_status} == "running") {
 					echo "Container ${CONTAINER_NAME} is already running. Stopping and removing container to start it again."
 				} else {

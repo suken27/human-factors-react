@@ -29,9 +29,4 @@ node {
 			}
 			sh "docker run --rm -d -p 3000:3000 --name ${CONTAINER_NAME} localhost:5000/react-app:latest"
 		}
-		post {
-			failure {
-				echo "The pipeline execution failed due to command errors."
-			}
-		}
 }

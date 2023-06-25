@@ -1,25 +1,98 @@
-import logo from './logo.svg'
-import users from './users.svg'
-import './SignupScreen.css'
+import axios from "axios";
+import { useState } from "react";
+import "./SignupScreen.css";
+import logo from "./logo.svg";
+import users from "./users.svg";
 
 export default function SignupScreen() {
-    return (
-        <div className="SignupScreen">
-            <div className="SignupScreen-left">
-                <img src={logo} className='SignupScreen-left-icon' />
-            </div>
-            <div className="SignupScreen-middle">
+  const client = axios.create({
+    baseURL: "http://192.168.1.79:8081/signup",
+  });
 
-            </div>
-            <div className="SignupScreen-right">
-                <img src={users} className='SignupScreen-right-icon' />
-                <form className="SignupScreen-right-signup-form">
-                    <input className='SignupScreen-right-signup-form-input' type='text' id='username' name='username' placeholder='Username' />
-                    <input className='SignupScreen-right-signup-form-input' type='password' id='password' name='password' placeholder='Password' />
-                    <input className='SignupScreen-right-signup-form-input' type='password' id='repeat-password' name='repeat-password' placeholder='Repeat password' />
-                    <button type='submit' className='SignupScreen-right-signup-form-button'>Sign up</button>
-                </form>
-            </div>
-        </div>
-    );
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
+
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
+  }
+
+  function handlePasswordChange(e) {
+    setPassword(e.target.value);
+  }
+
+  function handlePassword2Change(e) {
+    setPassword2(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    // Check if password and password2 are equal
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        client
+          .post("", {
+            email: email,
+            password: password,
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        resolve();
+      }, 1500);
+    });
+  }
+
+  return (
+    <div className="SignupScreen">
+      <div className="SignupScreen-left">
+        <img src={logo} className="SignupScreen-left-icon" alt="" />
+      </div>
+      <div className="SignupScreen-middle"></div>
+      <div className="SignupScreen-right">
+        <img src={users} className="SignupScreen-right-icon" alt="" />
+        <form
+          className="SignupScreen-right-signup-form"
+          onSubmit={handleSubmit}
+        >
+          <input
+            className="SignupScreen-right-signup-form-input"
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Email"
+            value={email}
+            onChange={handleEmailChange}
+          />
+          <input
+            className="SignupScreen-right-signup-form-input"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          <input
+            className="SignupScreen-right-signup-form-input"
+            type="password"
+            id="repeat-password"
+            name="repeat-password"
+            placeholder="Repeat password"
+            value={password2}
+            onChange={handlePassword2Change}
+          />
+          <button
+            type="submit"
+            className="SignupScreen-right-signup-form-button"
+          >
+            Sign up
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }

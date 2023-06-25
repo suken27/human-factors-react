@@ -26,6 +26,7 @@ node {
 					echo "Container ${CONTAINER_NAME} is already running. Stopping and removing container to start it again."
 					sh "docker stop ${CONTAINER_NAME}"
 				}
+				sh "docker container rm ${CONTAINER_NAME}"
 			}
 			sh "docker run -d -p 3000:3000 --name ${CONTAINER_NAME} --restart unless-stopped localhost:5000/react-app:latest"
 		}

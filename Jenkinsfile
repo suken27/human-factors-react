@@ -27,6 +27,6 @@ node {
 					sh "docker stop ${CONTAINER_NAME}"
 				}
 			}
-			sh "docker run --rm -d -p 3000:3000 --name ${CONTAINER_NAME} localhost:5000/react-app:latest"
+			sh "docker run --rm -d -p 3000:3000 --name ${CONTAINER_NAME} --restart unless-stopped localhost:5000/react-app:latest"
 		}
 }

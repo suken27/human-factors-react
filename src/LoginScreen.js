@@ -1,17 +1,19 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./LoginScreen.css";
 import logo from "./logo.svg";
 import users from "./users.svg";
 
 export default function LoginScreen() {
-
   const client = axios.create({
     baseURL: "http://192.168.1.79:8081/login",
   });
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [status, setStatus] = useState("typing");
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -23,7 +25,8 @@ export default function LoginScreen() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    return new Promise((resolve, reject) => {
+
+    return new Promise((resolve) => {
       setTimeout(() => {
         client
           .post("", {
@@ -35,9 +38,11 @@ export default function LoginScreen() {
             const token = response.data.token;
             localStorage.setItem("token", token);
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            navigate("/");
           })
           .catch(function (error) {
             console.log(error);
+            setStatus("error");
           });
         resolve();
       }, 1500);
@@ -71,7 +76,15 @@ export default function LoginScreen() {
             value={password}
             onChange={handlePasswordChange}
           />
-          <button type="submit" className="LoginScreen-right-login-form-button">
+          <button
+            type="submit"
+            className="LoginScreen-right-login-form-button"
+            disabled={
+              email.length === 0 ||
+              password.length === 0 ||
+              status === "submitting"
+            }
+          >
             Login
           </button>
         </form>

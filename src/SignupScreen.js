@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./SignupScreen.css";
 import logo from "./logo.svg";
 import users from "./users.svg";
@@ -8,10 +9,14 @@ export default function SignupScreen() {
   const client = axios.create({
     baseURL: "http://192.168.1.79:8081/signup",
   });
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+  const [emailFormatError, setEmailFormatError] = useState(false);
+  const [passwordFormatError, setPasswordFormatError] = useState(false);
+  const [passwordRepetitionError, setPasswordRepetitionError] = useState(false);
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -37,6 +42,7 @@ export default function SignupScreen() {
           })
           .then(function (response) {
             console.log(response);
+            navigate("/login");
           })
           .catch(function (error) {
             console.log(error);
@@ -54,6 +60,9 @@ export default function SignupScreen() {
       <div className="SignupScreen-middle"></div>
       <div className="SignupScreen-right">
         <img src={users} className="SignupScreen-right-icon" alt="" />
+        <div className="SignupScreen-right-error">
+
+        </div>
         <form
           className="SignupScreen-right-signup-form"
           onSubmit={handleSubmit}

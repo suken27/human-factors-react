@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import FullScreen from './FullScreen'
-import ErrorPage from './error-page';
+import FullScreen from './FullScreen';
 import LoginScreen from './LoginScreen';
 import SignupScreen from './SignupScreen';
+import ErrorPage from './error-page';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
     {
@@ -21,6 +21,9 @@ const router = createBrowserRouter([
     {
         path: "signup",
         element: <SignupScreen />
+    },
+    {
+        
     }
 ]);
 

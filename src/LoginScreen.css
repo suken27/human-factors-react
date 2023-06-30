@@ -44,6 +44,18 @@
     margin: auto;
 }
 
+.LoginScreen-right-login-form-error-message {
+    background-color: #fce6e6;
+    margin: 10px;
+    padding: 10px;
+    border-width: 1px;
+    border-color: #a83030;
+    border-style: solid;
+    border-radius: 5px;
+    color: #a83030;
+    text-align: left;
+}
+
 .LoginScreen-right-login-form-input {
     margin: 10px;
     height: 20px;

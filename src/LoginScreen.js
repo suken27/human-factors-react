@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import validator from "validator";
 import "./LoginScreen.css";
 import logo from "./logo.svg";
 import users from "./users.svg";
@@ -14,6 +15,8 @@ export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("typing");
+  const [emailFormatError, setEmailFormatError] = useState(false);
+  const [loginError, setLoginError] = useState(false);
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -25,7 +28,13 @@ export default function LoginScreen() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
+    if(!validator.isEmail(email)) {
+      setEmailFormatError(true);
+      return;
+    }
+    setEmailFormatError(false);
+    setLoginError(false);
+    setStatus("submitting");
     return new Promise((resolve) => {
       setTimeout(() => {
         client
@@ -42,7 +51,10 @@ export default function LoginScreen() {
           })
           .catch(function (error) {
             console.log(error);
-            setStatus("error");
+            if(error.response && error.response.status === 400) {
+              setLoginError(true);
+            }
+            setStatus("typing");
           });
         resolve();
       }, 1500);
@@ -58,6 +70,20 @@ export default function LoginScreen() {
       <div className="LoginScreen-right">
         <img src={users} className="LoginScreen-right-icon" alt="" />
         <form className="LoginScreen-right-login-form" onSubmit={handleSubmit}>
+        <div className="LoginScreen-right-login-form-error">
+            <div
+              className="LoginScreen-right-login-form-error-message"
+              hidden={!emailFormatError}
+            >
+              Incorrect email format.
+            </div>
+            <div
+              className="LoginScreen-right-login-form-error-message"
+              hidden={!loginError}
+            >
+              Incorrect email or password.
+            </div>
+          </div>
           <input
             className="LoginScreen-right-login-form-input"
             type="text"

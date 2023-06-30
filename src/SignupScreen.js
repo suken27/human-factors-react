@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import validator from "validator";
 import "./SignupScreen.css";
 import logo from "./logo.svg";
 import users from "./users.svg";
@@ -17,6 +18,8 @@ export default function SignupScreen() {
   const [emailFormatError, setEmailFormatError] = useState(false);
   const [passwordFormatError, setPasswordFormatError] = useState(false);
   const [passwordRepetitionError, setPasswordRepetitionError] = useState(false);
+  const [existingUserError, setExistingUserError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -30,9 +33,28 @@ export default function SignupScreen() {
     setPassword2(e.target.value);
   }
 
+  function validPassword(password) {
+    return password.length > 5;
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
-    // Check if password and password2 are equal
+    if (!validator.isEmail(email)) {
+      setEmailFormatError(true);
+      return;
+    }
+    setEmailFormatError(false);
+    if (!validPassword(password)) {
+      setPasswordFormatError(true);
+      return;
+    }
+    setPasswordFormatError(false);
+    if (password !== password2) {
+      setPasswordRepetitionError(true);
+      return;
+    }
+    setPasswordRepetitionError(false);
+    setSubmitting(true);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         client
@@ -46,6 +68,10 @@ export default function SignupScreen() {
           })
           .catch(function (error) {
             console.log(error);
+            setSubmitting(false);
+            if(error.response && error.response.status === 400) {
+              setExistingUserError(true);
+            }
           });
         resolve();
       }, 1500);
@@ -60,13 +86,36 @@ export default function SignupScreen() {
       <div className="SignupScreen-middle"></div>
       <div className="SignupScreen-right">
         <img src={users} className="SignupScreen-right-icon" alt="" />
-        <div className="SignupScreen-right-error">
-
-        </div>
         <form
           className="SignupScreen-right-signup-form"
           onSubmit={handleSubmit}
         >
+          <div className="SignupScreen-right-signup-form-error">
+            <div
+              className="SignupScreen-right-signup-form-error-message"
+              hidden={!emailFormatError}
+            >
+              Incorrect email format.
+            </div>
+            <div
+              className="SignupScreen-right-signup-form-error-message"
+              hidden={!passwordFormatError}
+            >
+              The password has to be at least 6 characters long.
+            </div>
+            <div
+              className="SignupScreen-right-signup-form-error-message"
+              hidden={!passwordRepetitionError}
+            >
+              Passwords do not match.
+            </div>
+            <div
+              className="SignupScreen-right-signup-form-error-message"
+              hidden={!existingUserError}
+            >
+              The email is already registered in the application.
+            </div>
+          </div>
           <input
             className="SignupScreen-right-signup-form-input"
             type="text"
@@ -97,10 +146,17 @@ export default function SignupScreen() {
           <button
             type="submit"
             className="SignupScreen-right-signup-form-button"
+            disabled={submitting}
           >
             Sign up
           </button>
         </form>
+        <div className="SignupScreen-right-login">
+          <p>Have an account?</p>
+          <a className="SignupScreen-right-login-button" href="/login">
+            Log in
+          </a>
+        </div>
       </div>
     </div>
   );

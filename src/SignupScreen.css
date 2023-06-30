@@ -44,6 +44,18 @@
     margin: auto;
 }
 
+.SignupScreen-right-signup-form-error-message {
+    background-color: #fce6e6;
+    margin: 10px;
+    padding: 10px;
+    border-width: 1px;
+    border-color: #a83030;
+    border-style: solid;
+    border-radius: 5px;
+    color: #a83030;
+    text-align: left;
+}
+
 .SignupScreen-right-signup-form-input {
     margin: 10px;
     height: 20px;
@@ -71,4 +83,16 @@
 
 .SignupScreen-right-signup-form-button:hover {
     opacity: 1;
+}
+
+.SignupScreen-right-login {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+}
+
+.SignupScreen-right-login-button {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
 }

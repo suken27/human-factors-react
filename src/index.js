@@ -24,9 +24,7 @@ const router = createBrowserRouter(
       element: <SignupScreen />,
     },
     {},
-  ],
-  { basename: "/react" }
-);
+  ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<RouterProvider router={router} />);

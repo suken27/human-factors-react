@@ -8,7 +8,7 @@ import users from "./users.svg";
 
 export default function LoginScreen() {
   const client = axios.create({
-    baseURL: "http://192.168.1.79:8081/login",
+    baseURL: "http://suken.io:8081/login",
   });
   const navigate = useNavigate();
 

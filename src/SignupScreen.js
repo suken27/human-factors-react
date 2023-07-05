@@ -7,8 +7,11 @@ import logo from "./logo.svg";
 import users from "./users.svg";
 
 export default function SignupScreen() {
+  // TODO: Obtener la IP publica desde una variable de entorno
+  // TODO: proporcionar esa variable desde la ejecución en Jenkins
+  // TODO: Obtener la IP publica en Jenkins
   const client = axios.create({
-    baseURL: "http://192.168.1.79:8081/signup",
+    baseURL: "http://suken.io:8081/signup",
   });
   const navigate = useNavigate();
 

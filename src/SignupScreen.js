@@ -7,9 +7,7 @@ import logo from "./logo.svg";
 import users from "./users.svg";
 
 export default function SignupScreen() {
-  // TODO: Obtener la IP publica desde una variable de entorno
-  // TODO: proporcionar esa variable desde la ejecución en Jenkins
-  // TODO: Obtener la IP publica en Jenkins
+  // TODO: Gestionar errores inesperados.
   const client = axios.create({
     baseURL: "http://java.suken.io/signup",
   });

@@ -11,7 +11,7 @@ export default function SignupScreen() {
   // TODO: proporcionar esa variable desde la ejecución en Jenkins
   // TODO: Obtener la IP publica en Jenkins
   const client = axios.create({
-    baseURL: "http://suken.io:8081/signup",
+    baseURL: "http://java.suken.io/signup",
   });
   const navigate = useNavigate();
 

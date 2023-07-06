@@ -20,6 +20,7 @@ export default function SignupScreen() {
   const [passwordFormatError, setPasswordFormatError] = useState(false);
   const [passwordRepetitionError, setPasswordRepetitionError] = useState(false);
   const [existingUserError, setExistingUserError] = useState(false);
+  const [unknownError, setUnknownError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   function handleEmailChange(e) {
@@ -55,6 +56,7 @@ export default function SignupScreen() {
       return;
     }
     setPasswordRepetitionError(false);
+    setUnknownError(false);
     setSubmitting(true);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -72,6 +74,8 @@ export default function SignupScreen() {
             setSubmitting(false);
             if(error.response && error.response.status === 400) {
               setExistingUserError(true);
+            } else {
+              setUnknownError(true);
             }
           });
         resolve();
@@ -115,6 +119,12 @@ export default function SignupScreen() {
               hidden={!existingUserError}
             >
               The email is already registered in the application.
+            </div>
+            <div
+              className="SignupScreen-right-signup-form-error-message"
+              hidden={!unknownError}
+            >
+              Unexpected error when connecting with the application.
             </div>
           </div>
           <input

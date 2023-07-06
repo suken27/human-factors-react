@@ -17,6 +17,7 @@ export default function LoginScreen() {
   const [status, setStatus] = useState("typing");
   const [emailFormatError, setEmailFormatError] = useState(false);
   const [loginError, setLoginError] = useState(false);
+  const [unknownError, setUnknownError] = useState(false);
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -34,6 +35,7 @@ export default function LoginScreen() {
     }
     setEmailFormatError(false);
     setLoginError(false);
+    setUnknownError(false);
     setStatus("submitting");
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -53,6 +55,8 @@ export default function LoginScreen() {
             console.log(error);
             if(error.response && error.response.status === 400) {
               setLoginError(true);
+            } else {
+              setUnknownError(true);
             }
             setStatus("typing");
           });
@@ -82,6 +86,12 @@ export default function LoginScreen() {
               hidden={!loginError}
             >
               Incorrect email or password.
+            </div>
+            <div
+              className="LoginScreen-right-login-form-error-message"
+              hidden={!unknownError}
+            >
+              Unexpected error when connecting with the application.
             </div>
           </div>
           <input

@@ -9,7 +9,7 @@ import users from "./users.svg";
 export default function SignupScreen() {
   // TODO: Gestionar errores inesperados.
   const client = axios.create({
-    baseURL: "http://java.suken.io/signup",
+    baseURL: "https://java.suken.io/signup",
   });
   const navigate = useNavigate();
 

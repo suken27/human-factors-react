@@ -2,12 +2,11 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
+import logo from "../svg/logo.svg";
+import users from "../svg/users.svg";
 import "./SignupScreen.css";
-import logo from "./logo.svg";
-import users from "./users.svg";
 
 export default function SignupScreen() {
-  // TODO: Gestionar errores inesperados.
   const client = axios.create({
     baseURL: "https://java.suken.io/signup",
   });
@@ -142,6 +141,7 @@ export default function SignupScreen() {
             id="password"
             name="password"
             placeholder="Password"
+            autoComplete="new-password"
             value={password}
             onChange={handlePasswordChange}
           />
@@ -151,6 +151,7 @@ export default function SignupScreen() {
             id="repeat-password"
             name="repeat-password"
             placeholder="Repeat password"
+            autoComplete="new-password"
             value={password2}
             onChange={handlePassword2Change}
           />

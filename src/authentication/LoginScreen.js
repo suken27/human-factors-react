@@ -2,9 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
+import logo from "../svg/logo.svg";
+import users from "../svg/users.svg";
 import "./LoginScreen.css";
-import logo from "./logo.svg";
-import users from "./users.svg";
 
 export default function LoginScreen() {
   const client = axios.create({
@@ -109,6 +109,7 @@ export default function LoginScreen() {
             id="password"
             name="password"
             placeholder="Password"
+            autoComplete="current-password"
             value={password}
             onChange={handlePasswordChange}
           />

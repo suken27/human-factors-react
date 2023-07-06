@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import FullScreen from "./FullScreen";
-import LoginScreen from "./LoginScreen";
-import SignupScreen from "./SignupScreen";
+import LoginScreen from "./authentication/LoginScreen";
+import SignupScreen from "./authentication/SignupScreen";
 import ErrorPage from "./error-page";
 import "./index.css";
+import FullScreen from "./interface/FullScreen";
 import reportWebVitals from "./reportWebVitals";
 
 const router = createBrowserRouter(

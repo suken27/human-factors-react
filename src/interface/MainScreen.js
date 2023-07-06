@@ -1,6 +1,6 @@
-import GraphComponent from './GraphComponent';
-import './MainScreen.css'
-import network from './network_diagram.svg'
+import GraphComponent from '../GraphComponent';
+import network from '../svg/network_diagram.svg';
+import './MainScreen.css';
 
 function MainScreen() {
     return(

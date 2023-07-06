@@ -1,7 +1,7 @@
-import logo from './logo.svg';
-import hamburguer from './hamburguer.svg'
-import settings from './settings.svg'
-import './NavBar.css'
+import hamburguer from '../svg/hamburguer.svg';
+import logo from '../svg/logo.svg';
+import settings from '../svg/settings.svg';
+import './NavBar.css';
 
 function NavBar() {
 

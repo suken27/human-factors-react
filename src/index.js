@@ -1,19 +1,31 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import LoginScreen from "./authentication/LoginScreen";
-import SignupScreen from "./authentication/SignupScreen";
 import ErrorPage from "./error-page";
+import GraphScreen from "./graph/GraphScreen";
 import "./index.css";
-import FullScreen from "./interface/FullScreen";
+import Root from "./interface/Root";
+import LoginScreen from "./login/LoginScreen";
+import SignupScreen from "./login/SignupScreen";
 import reportWebVitals from "./reportWebVitals";
+import TeamScreen from "./team/TeamScreen";
 
 const router = createBrowserRouter(
   [
     {
       path: "/",
-      element: <FullScreen />,
+      element: <Root />,
       errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "graph",
+          element: <GraphScreen/>
+        },
+        {
+          path: "team",
+          element: <TeamScreen/>
+        }
+      ]
     },
     {
       path: "login",

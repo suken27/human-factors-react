@@ -1,15 +1,12 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
+import AuthService from "../authentication/AuthService";
 import logo from "../svg/logo.svg";
 import users from "../svg/users.svg";
 import "./LoginScreen.css";
 
 export default function LoginScreen() {
-  const client = axios.create({
-    baseURL: "https://java.suken.io/login",
-  });
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -29,7 +26,7 @@ export default function LoginScreen() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if(!validator.isEmail(email)) {
+    if (!validator.isEmail(email)) {
       setEmailFormatError(true);
       return;
     }
@@ -37,32 +34,16 @@ export default function LoginScreen() {
     setLoginError(false);
     setUnknownError(false);
     setStatus("submitting");
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        client
-          .post("", {
-            email: email,
-            password: password,
-          })
-          .then(function (response) {
-            console.log(response);
-            const token = response.data.token;
-            localStorage.setItem("token", token);
-            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-            navigate("/");
-          })
-          .catch(function (error) {
-            console.log(error);
-            if(error.response && error.response.status === 400) {
-              setLoginError(true);
-            } else {
-              setUnknownError(true);
-            }
-            setStatus("typing");
-          });
-        resolve();
-      }, 1500);
-    });
+    AuthService.login(email, password)
+      .then(navigate("/graph"))
+      .catch(function (error) {
+        if (error.response && error.response.status === 400) {
+          setLoginError(true);
+        } else {
+          setUnknownError(true);
+        }
+        setStatus("typing");
+      });
   }
 
   return (
@@ -74,7 +55,7 @@ export default function LoginScreen() {
       <div className="LoginScreen-right">
         <img src={users} className="LoginScreen-right-icon" alt="" />
         <form className="LoginScreen-right-login-form" onSubmit={handleSubmit}>
-        <div className="LoginScreen-right-login-form-error">
+          <div className="LoginScreen-right-login-form-error">
             <div
               className="LoginScreen-right-login-form-error-message"
               hidden={!emailFormatError}

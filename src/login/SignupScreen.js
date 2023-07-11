@@ -1,15 +1,12 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
+import AuthService from "../authentication/AuthService";
 import logo from "../svg/logo.svg";
 import users from "../svg/users.svg";
 import "./SignupScreen.css";
 
 export default function SignupScreen() {
-  const client = axios.create({
-    baseURL: "https://java.suken.io/signup",
-  });
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -57,29 +54,16 @@ export default function SignupScreen() {
     setPasswordRepetitionError(false);
     setUnknownError(false);
     setSubmitting(true);
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        client
-          .post("", {
-            email: email,
-            password: password,
-          })
-          .then(function (response) {
-            console.log(response);
-            navigate("/login");
-          })
-          .catch(function (error) {
-            console.log(error);
-            setSubmitting(false);
-            if(error.response && error.response.status === 400) {
-              setExistingUserError(true);
-            } else {
-              setUnknownError(true);
-            }
-          });
-        resolve();
-      }, 1500);
-    });
+    AuthService.register(email, password)
+      .then(navigate("/login"))
+      .catch(function (error) {
+        setSubmitting(false);
+        if (error.response && error.response.status === 400) {
+          setExistingUserError(true);
+        } else {
+          setUnknownError(true);
+        }
+      });
   }
 
   return (

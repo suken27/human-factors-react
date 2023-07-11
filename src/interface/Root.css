@@ -1,0 +1,17 @@
+.Root {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.Root-belowNavBar {
+    background-color: brown;
+    display: flex;
+    flex-flow: row;
+    flex: 1 1 auto;
+}
+
+.Root-content {
+    width: 100%;
+    padding: 50px;
+}

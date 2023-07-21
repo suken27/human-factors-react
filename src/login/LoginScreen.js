@@ -35,7 +35,9 @@ export default function LoginScreen() {
     setUnknownError(false);
     setStatus("submitting");
     AuthService.login(email, password)
-      .then(navigate("/graph"))
+      .then(function(response) {
+        navigate("/graph");
+      })
       .catch(function (error) {
         if (error.response && error.response.status === 400) {
           setLoginError(true);
@@ -82,6 +84,7 @@ export default function LoginScreen() {
             name="email"
             placeholder="Email"
             value={email}
+            autoComplete="username"
             onChange={handleEmailChange}
           />
           <input

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, redirect } from "react-router-dom";
+import AuthService from "./authentication/AuthService";
 import ErrorPage from "./error-page";
 import GraphScreen from "./graph/GraphScreen";
 import "./index.css";
@@ -16,6 +17,14 @@ const router = createBrowserRouter(
       path: "/",
       element: <Root />,
       errorElement: <ErrorPage />,
+      loader: () => {
+        console.log(AuthService.getCurrentUser());
+        if(!AuthService.getCurrentUser() || AuthService.getCurrentUser() === undefined || AuthService.getCurrentUser() === "undefined") {
+          console.log("redirection problem");
+          return redirect("/login");
+        }
+        return null;
+      },
       children: [
         {
           path: "graph",

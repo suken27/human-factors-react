@@ -5,13 +5,15 @@
 }
 
 .Root-belowNavBar {
-    background-color: brown;
+    background-color: white;
     display: flex;
     flex-flow: row;
     flex: 1 1 auto;
 }
 
 .Root-content {
-    width: 100%;
+    max-width: 1600px;
     padding: 50px;
+    margin-left: auto;
+    margin-right: auto;
 }

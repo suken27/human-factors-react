@@ -1,5 +1,5 @@
 .SlideBar {
-    background-color: blueviolet;
+    background-color: lightgrey;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,7 +15,7 @@
 }
 
 .SlideBar-button:hover {
-    background-color: rgb(151, 74, 223);
+    background-color: whitesmoke;
 }
 
 .SlideBar-button-text {

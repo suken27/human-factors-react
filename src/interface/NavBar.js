@@ -1,7 +1,12 @@
+import AuthService from '../authentication/AuthService';
 import hamburguer from '../svg/hamburguer.svg';
 import logo from '../svg/logo.svg';
 import settings from '../svg/settings.svg';
 import './NavBar.css';
+
+function handleLogOut() {
+    AuthService.logout();
+}
 
 function NavBar() {
 
@@ -15,7 +20,9 @@ function NavBar() {
                 </a>
             </div>
             <div className="NavBar-right">
-                <img src={settings} className="NavBar-settings" alt="settings" />
+                <a className='NavBar-right-settings-button' onClick={handleLogOut} href='/login'>
+                    <img src={settings} className="NavBar-right-settings-button-image" alt="settings" />
+                </a>
             </div>
         </div>
     );

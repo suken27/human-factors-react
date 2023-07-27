@@ -13,7 +13,6 @@ class AuthService {
           .then((response) => {
             localStorage.setItem("user", response.data.email);
             localStorage.setItem("token", response.data.token);
-            console.log(localStorage.getItem("user"));
             resolve(response);
           })
           .catch((error) => {

@@ -5,7 +5,23 @@ import authHeader from "../authentication/authHeader";
 import trash from "../svg/trash.svg";
 import "./TeamScreen.css";
 
-function TeamMember({ email }) {
+function TeamMember({ email, members, setMembers }) {
+
+  function handleRemove() {
+    const postHeaders = authHeader();
+    postHeaders["Content-Type"] = "text/plain";
+    axios
+      .delete("https://java.suken.io/teams/" + email, {
+        headers: postHeaders,
+      })
+      .then((response) => {
+        setMembers(members.filter((value) => {return value.email !== email}));
+      })
+      .catch((error) => {
+        // TODO: Report error.
+        console.log(error);
+      });
+  }
 
   return(
       <div className="TeamMember">
@@ -13,7 +29,7 @@ function TeamMember({ email }) {
               {email}
           </div>
           <div className="TeamMember-remove">
-              <button className="TeamMember-remove-button">
+              <button className="TeamMember-remove-button" onClick={handleRemove}>
                   <img src={trash} className="TeamMember-remove-button-image" alt="remove member" />
               </button>
           </div>
@@ -38,7 +54,6 @@ function TeamScreen() {
 
     const postHeaders = authHeader();
     postHeaders["Content-Type"] = "text/plain";
-    console.log(postHeaders);
     axios
       .post("https://java.suken.io/teams", newMemberEmail, {
         headers: postHeaders,
@@ -57,11 +72,11 @@ function TeamScreen() {
     setNewMemberEmail(e.target.value);
   }
 
-  function ListMembers({ members }) {
+  function ListMembers() {
     const rows = [];
     if (members !== undefined) {
       members.forEach((member) => {
-        rows.push(<TeamMember email={member.email} key={member.id} />);
+        rows.push(<TeamMember email={member.email} key={member.id} members={members} setMembers={setMembers} />);
       });
     }
     return rows;
@@ -96,7 +111,7 @@ function TeamScreen() {
           Your team has no members yet
         </div>
         <div className="TeamScreen-members-list" hidden={members.length === 0}>
-          <ListMembers members={members} />
+          <ListMembers />
         </div>
       </div>
       <div className="TeamScreen-management">

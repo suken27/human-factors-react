@@ -102,6 +102,7 @@ h2 {
 .TeamScreen-management-timeSetting-right-time {
     text-align: center;
     height: 100%;
+    padding-top: 40px;
 }
 
 input[type="time" i]:hover {

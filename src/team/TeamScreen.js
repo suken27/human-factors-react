@@ -126,7 +126,8 @@ function TeamScreen() {
     axios
       .get("https://java.suken.io/teams", { headers: authHeader() })
       .then((response) => {
-        setMembers(response.data);
+        setMembers(response.data.members);
+        setQuestionTime(response.data.questionSendingTime)
       })
       .catch((error) => {
         setTeamRetrieveError(true);

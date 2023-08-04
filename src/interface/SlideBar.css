@@ -1,9 +1,9 @@
 .SlideBar {
-    background-color: lightgrey;
     display: flex;
     flex-direction: column;
     align-items: center;
     flex: 0 0 75px;
+    border-right: 1px solid #b6b6b6;
 }
 
 .SlideBar-button {

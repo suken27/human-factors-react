@@ -1,7 +1,7 @@
 .TeamMember {
     display: flex;
     flex-direction: row;
-    margin: 10px;
+    margin-bottom: 10px;
     border: 1px solid black;
     border-radius: 5px;
     padding: 5px;
@@ -9,8 +9,101 @@
 
 .TeamMember-email {
     margin-right: 20px;
+    flex: 4;
+}
+
+input {
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #b6b6b6;
+    border-radius: 5px;
+}
+
+.TeamMember-remove {
+    flex-flow: row-reverse;
+    text-align: right;
+    display: flex;
+    flex: 1;
 }
 
 .TeamMember-remove-button-image {
     width: 20px;
+}
+
+.individual {
+    border: 1px solid #b6b6b6;
+    border-radius: 5px;
+    padding: 0px;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+h2 {
+    margin: 0px;
+}
+
+.TeamScreen-members {
+    padding: 50px;
+}
+
+.TeamScreen-members-title {
+    margin-bottom: 20px;
+}
+
+.TeamScreen-members-newMember-form {
+    text-align: left;
+    display: flex;
+    margin-top: 40px;
+}
+
+.TeamScreen-members-newMember-form-input {
+    flex: 3;
+    margin-right: 40px;
+}
+
+.TeamScreen-members-newMember-form-button {
+    flex: 1;
+}
+
+.TeamScreen-members-error {
+    background-color: #fce6e6;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-width: 1px;
+    border-color: #a83030;
+    border-style: solid;
+    border-radius: 5px;
+    color: #a83030;
+    text-align: left;
+}
+
+.TeamScreen-management-timeSetting {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.TeamScreen-management-timeSetting-left {
+    flex: 2;
+    padding: 50px;
+}
+
+.TeamScreen-management-timeSetting-middle {
+    background-color: #b6b6b6;
+    width: 1px;
+}
+
+.TeamScreen-management-timeSetting-right {
+    background-color: whitesmoke;
+    flex: 1;
+    padding: 32px;
+}
+
+.TeamScreen-management-timeSetting-right-time {
+    text-align: center;
+    height: 100%;
+}
+
+input[type="time" i]:hover {
+    border-color: gray;
 }

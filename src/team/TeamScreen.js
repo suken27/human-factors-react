@@ -127,7 +127,7 @@ function TeamScreen() {
       .get("https://java.suken.io/teams", { headers: authHeader() })
       .then((response) => {
         setMembers(response.data.members);
-        setQuestionTime(response.data.questionSendingTime)
+        setQuestionTime(response.data.questionSendingTime);
       })
       .catch((error) => {
         setTeamRetrieveError(true);
@@ -139,33 +139,21 @@ function TeamScreen() {
     <div className="TeamScreen">
       <div className="TeamScreen-members individual">
         <h2 className="TeamScreen-members-title">Team members</h2>
-        <div
-          className="TeamScreen-members-error"
-          hidden={!teamRetrieveError}
-        >
+        <div className="TeamScreen-members-error" hidden={!teamRetrieveError}>
           Team retrieve error
         </div>
-        <div
-          className="TeamScreen-members-error"
-          hidden={!existingMemberError}
-        >
+        <div className="TeamScreen-members-error" hidden={!existingMemberError}>
           The email is already registered as a team member
         </div>
-        <div
-          className="TeamScreen-members-error"
-          hidden={!memberCreationError}
-        >
+        <div className="TeamScreen-members-error" hidden={!memberCreationError}>
           An unexpected error ocurred on member creation
         </div>
-        <div
-          className="TeamScreen-members-error"
-          hidden={!memberRemovalError}
-        >
+        <div className="TeamScreen-members-error" hidden={!memberRemovalError}>
           An unexpected error ocurred on member removal
         </div>
         <div
           className="TeamScreen-members-noMembersMessage"
-          hidden={members.length !== 0 || teamRetrieveError }
+          hidden={members.length !== 0 || teamRetrieveError}
         >
           Your team has no members yet
         </div>
@@ -201,6 +189,28 @@ function TeamScreen() {
         </form>
       </div>
       <div className="TeamScreen-management">
+        <div className="TeamScreen-management-slack individual">
+          <div className="TeamScreen-management-slack-left">
+            <div className="TeamScreen-management-timeSetting-left-description">
+              <h2>Slack integration</h2>
+              <p>Click the button to add the Slack App to your workspace.</p>
+            </div>
+          </div>
+          <div className="TeamScreen-management-slack-middle"></div>
+          <div className="TeamScreen-management-slack-right">
+            <div className="TeamScreen-management-slack-right-button">
+              <a href="https://slack.com/oauth/v2/authorize?client_id=2452501990086.5754494427765&scope=app_mentions:read,commands&user_scope=">
+                <img
+                  alt="Add to Slack"
+                  height="40"
+                  width="139"
+                  src="https://platform.slack-edge.com/img/add_to_slack.png"
+                  srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
         <div className="TeamScreen-management-timeSetting individual">
           <div className="TeamScreen-management-timeSetting-left">
             <div className="TeamScreen-management-timeSetting-left-description">
@@ -215,7 +225,8 @@ function TeamScreen() {
           <div className="TeamScreen-management-timeSetting-middle"></div>
           <div className="TeamScreen-management-timeSetting-right">
             <div className="TeamScreen-management-timeSetting-right-time">
-              <input className="TeamScreen-management-timeSetting-right-time-input"
+              <input
+                className="TeamScreen-management-timeSetting-right-time-input"
                 type="time"
                 id="questionTime"
                 name="questionTime"

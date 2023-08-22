@@ -77,6 +77,29 @@ h2 {
     text-align: left;
 }
 
+.TeamScreen-management-slack {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.TeamScreen-management-slack-left {
+    flex: 2;
+    padding: 50px;
+}
+
+.TeamScreen-management-slack-middle {
+    background-color: #b6b6b6;
+    width: 1px;
+}
+
+.TeamScreen-management-slack-right {
+    background-color: whitesmoke;
+    flex: 1;
+    padding-top: 32px;
+    text-align: center;
+}
+
 .TeamScreen-management-timeSetting {
     display: flex;
     flex-direction: row;

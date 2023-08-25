@@ -193,13 +193,13 @@ function TeamScreen() {
           <div className="TeamScreen-management-slack-left">
             <div className="TeamScreen-management-timeSetting-left-description">
               <h2>Slack integration</h2>
-              <p>Click the button to add the Slack App to your workspace.</p>
+              <p>Click the button to add the Slack App to your workspace. This button will redirect you to another page that generates a secured 'add to slack' button.</p>
             </div>
           </div>
           <div className="TeamScreen-management-slack-middle"></div>
           <div className="TeamScreen-management-slack-right">
             <div className="TeamScreen-management-slack-right-button">
-              <a href="https://slack.com/oauth/v2/authorize?client_id=2452501990086.5754494427765&scope=app_mentions:read,commands&user_scope=">
+              <a href="https://java.suken.io/slack/install">
                 <img
                   alt="Add to Slack"
                   height="40"

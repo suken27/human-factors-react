@@ -4,6 +4,9 @@
     align-items: center;
     flex: 0 0 75px;
     border-right: 1px solid #b6b6b6;
+    background-color: white;
+    position: fixed;
+    height: 100%;
 }
 
 .SlideBar-button {

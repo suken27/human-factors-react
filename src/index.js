@@ -8,6 +8,7 @@ import "./index.css";
 import Root from "./interface/Root";
 import LoginScreen from "./login/LoginScreen";
 import SignupScreen from "./login/SignupScreen";
+import ActionScreen from "./recommendation/Actions";
 import reportWebVitals from "./reportWebVitals";
 import TeamScreen from "./team/TeamScreen";
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter(
         {
           path: "team",
           element: <TeamScreen/>
+        },
+        {
+          path: "actions",
+          element: <ActionScreen/>
         }
       ]
     },

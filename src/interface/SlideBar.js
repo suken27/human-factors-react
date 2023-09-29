@@ -1,6 +1,7 @@
 import construction from "../svg/construction.svg";
 import graph from "../svg/graph.svg";
 import user from "../svg/user.svg";
+import warning from "../svg/warning.svg";
 import "./SlideBar.css";
 
 function SlideBar() {
@@ -22,6 +23,14 @@ function SlideBar() {
         />
         <div className="SlideBar-button-text">Team</div>
       </a>
+      <a href="/actions" className="SlideBar-button">
+		<img
+		  src={warning}
+		  className="SlideBar-button-icon"
+		  alt="Actions page"
+		/>
+		<div className="SlideBar-button-text">Actions</div>
+	  </a>
       <a href="/login" className="SlideBar-button">
         <img
           src={construction}

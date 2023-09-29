@@ -188,52 +188,54 @@ function TeamScreen() {
           </button>
         </form>
       </div>
-      <div className="TeamScreen-management">
-        <div className="TeamScreen-management-slack individual">
-          <div className="TeamScreen-management-slack-left">
-            <div className="TeamScreen-management-timeSetting-left-description">
-              <h2>Slack integration</h2>
-              <p>Click the button to add the Slack App to your workspace. This button will redirect you to another page that generates a secured 'add to slack' button.</p>
-            </div>
-          </div>
-          <div className="TeamScreen-management-slack-middle"></div>
-          <div className="TeamScreen-management-slack-right">
-            <div className="TeamScreen-management-slack-right-button">
-              <a href="https://java.suken.io/slack/install">
-                <img
-                  alt="Add to Slack"
-                  height="40"
-                  width="139"
-                  src="https://platform.slack-edge.com/img/add_to_slack.png"
-                  srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
-                />
-              </a>
-            </div>
+      <div className="TeamScreen-management-slack individual">
+        <div className="TeamScreen-management-slack-left">
+          <div className="TeamScreen-management-timeSetting-left-description">
+            <h2>Slack integration</h2>
+            <p>
+              Click the button to add the Slack App to your workspace. This
+              button will redirect you to another page that generates a secured
+              'add to slack' button.
+            </p>
           </div>
         </div>
-        <div className="TeamScreen-management-timeSetting individual">
-          <div className="TeamScreen-management-timeSetting-left">
-            <div className="TeamScreen-management-timeSetting-left-description">
-              <h2>Question sending time</h2>
-              <p>
-                Set the time at which the questions for human factor measurement
-                will be sent from Monday to Friday. Questions will be sent only
-                once per day.
-              </p>
-            </div>
-          </div>
-          <div className="TeamScreen-management-timeSetting-middle"></div>
-          <div className="TeamScreen-management-timeSetting-right">
-            <div className="TeamScreen-management-timeSetting-right-time">
-              <input
-                className="TeamScreen-management-timeSetting-right-time-input"
-                type="time"
-                id="questionTime"
-                name="questionTime"
-                value={questionTime}
-                onInput={handleQuestionTimeChange}
+        <div className="TeamScreen-management-slack-middle"></div>
+        <div className="TeamScreen-management-slack-right">
+          <div className="TeamScreen-management-slack-right-button">
+            <a href="https://java.suken.io/slack/install">
+              <img
+                alt="Add to Slack"
+                height="40"
+                width="139"
+                src="https://platform.slack-edge.com/img/add_to_slack.png"
+                srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
               />
-            </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div className="TeamScreen-management-timeSetting individual">
+        <div className="TeamScreen-management-timeSetting-left">
+          <div className="TeamScreen-management-timeSetting-left-description">
+            <h2>Question sending time</h2>
+            <p>
+              Set the time at which the questions for human factor measurement
+              will be sent from Monday to Friday. Questions will be sent only
+              once per day.
+            </p>
+          </div>
+        </div>
+        <div className="TeamScreen-management-timeSetting-middle"></div>
+        <div className="TeamScreen-management-timeSetting-right">
+          <div className="TeamScreen-management-timeSetting-right-time">
+            <input
+              className="TeamScreen-management-timeSetting-right-time-input"
+              type="time"
+              id="questionTime"
+              name="questionTime"
+              value={questionTime}
+              onInput={handleQuestionTimeChange}
+            />
           </div>
         </div>
       </div>

@@ -6,6 +6,9 @@
     height: 50px;
     padding: 5px;
     border-bottom: 1px solid #b6b6b6;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
 
 .NavBar-left {

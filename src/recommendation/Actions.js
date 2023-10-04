@@ -3,13 +3,32 @@ import { useEffect, useState } from "react";
 import authHeader from "../authentication/authHeader";
 import "./Actions.css";
 
-function Action({ title, description }) {
+function Action({ title, description, score }) {
   return (
-	<div className="Action">
-	  <div className="Action-title">{title}</div>
-	  <div className="Action-description">{description}</div>
-	</div>
+    <div className="Action">
+      <div className="Action-title">{title} {score}</div>
+      <div className="Action-description">{description}</div>
+    </div>
   );
+}
+
+function ActionList({ actions }) {
+  const rows = [];
+    if (actions !== undefined) {
+      actions.sort(function(a, b) {
+        return b.score - a.score;
+      });
+      actions.forEach((action) => {
+        rows.push(
+          <Action
+            title={action.title}
+            score={action.score}
+            description={action.description}
+          />
+        );
+      });
+    }
+    return rows;
 }
 
 function ActionScreen() {
@@ -18,9 +37,9 @@ function ActionScreen() {
 
   useEffect(() => {
     axios
-      .get("https://java.suken.io/actions", { headers: authHeader() })
+      .get("https://java.suken.io/teams/actions", { headers: authHeader() })
       .then((response) => {
-        setActions(response.data.actions);
+        setActions(response.data);
       })
       .catch((error) => {
         setActionsRetrieveError(true);
@@ -30,51 +49,13 @@ function ActionScreen() {
 
   return (
     <div className="Actions">
-      <div className="Actions-left">
-        <h3 className="Actions-title">Human Factors</h3>
-        <div className="Actions-left-factors">
-          <div className="Actions-left-factors-item">
-            <div className="Actions-left-factors-item-tag orange">
-              &#128903;
-            </div>{" "}
-            Satisfaction
-          </div>
-          <div className="Actions-left-factors-item selected">
-            <div className="Actions-left-factors-item-tag red">&#128903;</div>{" "}
-            Technical and methodological skills
-          </div>
-          <div className="Actions-left-factors-item">
-            <div className="Actions-left-factors-item-tag green">&#128903;</div>{" "}
-            Motivation
-          </div>
-          <div className="Actions-left-factors-item">
-            <div className="Actions-left-factors-item-tag green">&#128903;</div>{" "}
-            Motivation
-          </div>
-        </div>
+      <div className="error" hidden={!actionsRetrieveError}>
+        <h3 className="error">Retrieve error</h3>
       </div>
-      <div className="Actions-right">
+      <div className="no-error" hidden={actionsRetrieveError}>
         <h3 className="Actions-title">Recommended actions</h3>
-        <div className="Actions-right-action">
-          <div className="Actions-right-action-title">Member rotation</div>
-          <div className="Actions-right-action-description">
-            The inclusion of new team members fosters knowledge sharing from and
-            towards the new members.
-          </div>
-        </div>
-        <div className="Actions-right-action">
-          <div className="Actions-right-action-title">Member rotation</div>
-          <div className="Actions-right-action-description">
-            The inclusion of new team members fosters knowledge sharing from and
-            towards the new members.
-          </div>
-        </div>
-        <div className="Actions-right-action">
-          <div className="Actions-right-action-title">Member rotation</div>
-          <div className="Actions-right-action-description">
-            The inclusion of new team members fosters knowledge sharing from and
-            towards the new members.
-          </div>
+        <div className="Actions-list" hidden={actions.length === 0}>
+          <ActionList actions={actions} />
         </div>
       </div>
     </div>

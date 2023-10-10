@@ -10,6 +10,7 @@ import LoginScreen from "./login/LoginScreen";
 import SignupScreen from "./login/SignupScreen";
 import ActionScreen from "./recommendation/Actions";
 import reportWebVitals from "./reportWebVitals";
+import SettingsScreen from "./settings/SettingsScreen";
 import TeamScreen from "./team/TeamScreen";
 
 const router = createBrowserRouter(
@@ -38,7 +39,11 @@ const router = createBrowserRouter(
         {
           path: "actions",
           element: <ActionScreen/>
-        }
+        },
+        {
+          path: "settings",
+          element: <SettingsScreen />
+        },
       ]
     },
     {

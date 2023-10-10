@@ -1,6 +1,6 @@
 import construction from "../svg/construction.svg";
 import graph from "../svg/graph.svg";
-import user from "../svg/user.svg";
+import users from "../svg/users.svg";
 import warning from "../svg/warning.svg";
 import "./SlideBar.css";
 
@@ -17,7 +17,7 @@ function SlideBar() {
       </a>
       <a href="/team" className="SlideBar-button">
         <img
-          src={user}
+          src={users}
           className="SlideBar-button-icon"
           alt="Team management"
         />

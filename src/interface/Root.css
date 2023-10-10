@@ -20,3 +20,83 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.individual {
+    border: 1px solid #b6b6b6;
+    border-radius: 5px;
+    padding: 0px;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.individual-left {
+    flex: 2;
+    padding: 30px;
+}
+
+.individual-middle {
+    flex: 0 0 1px;
+    background-color: #b6b6b6;
+    width: 1px;
+}
+
+.individual-right {
+    background-color: whitesmoke;
+    flex: 1;
+    padding-top: 32px;
+    text-align: center;
+}
+
+.multi-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.multi-input-full {
+    padding: 30px;
+    border-bottom: 1px solid #b6b6b6;
+}
+
+.multi-input-half {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 auto;
+}
+
+.multi-input-sep {
+    flex: 0 0 1px;
+    background-color: #b6b6b6;
+    height: 1px;
+}
+
+.multi-input-half-left {
+    padding: 20px;
+    flex: 1;
+}
+
+.multi-input-half-middle {
+    flex: 0 0 1px;
+    background-color: #b6b6b6;
+    width: 1px;
+}
+
+.multi-input-half-right {
+    padding: 20px;
+    flex: 1;
+    background-color: whitesmoke;
+}
+
+.multi-input-button {
+    padding: 5px 20px;
+}
+
+input {
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #b6b6b6;
+    border-radius: 5px;
+}
+
+.title {
+    text-align: left;
+}

@@ -1,0 +1,31 @@
+.navbar {
+  height: var(--nav-size);
+  background-color: var(--bg);
+  padding: 0 1rem;
+  border-bottom: var(--border);
+  width: calc(100% - 2rem);
+  display: flex;
+  position: fixed;
+  z-index: 1;
+}
+
+.navbar-logo {
+  max-width: 100%;
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.NavBar-logo-link {
+  display: flex;
+  flex-direction: row;
+}
+
+.navbar-nav {
+  max-width: 100%;
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+}

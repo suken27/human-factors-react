@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import validator from "validator";
+import AuthService from "../authentication/AuthService";
 import authHeader from "../authentication/authHeader";
 import trash from "../svg/trash.svg";
 import "./TeamScreen.css";
@@ -130,6 +131,11 @@ function TeamScreen() {
         setQuestionTime(response.data.questionSendingTime);
       })
       .catch((error) => {
+        if(error.response && error.response.status === 401) {
+          AuthService.logout();
+          window.location.href = "/login";
+          return;
+        }
         setTeamRetrieveError(true);
         console.log(error);
       });
@@ -189,7 +195,7 @@ function TeamScreen() {
         </form>
       </div>
       <div className="TeamScreen-management-slack individual">
-        <div className="TeamScreen-management-slack-left">
+        <div className="individual-left">
           <div className="TeamScreen-management-timeSetting-left-description">
             <h2>Slack integration</h2>
             <p>
@@ -199,8 +205,8 @@ function TeamScreen() {
             </p>
           </div>
         </div>
-        <div className="TeamScreen-management-slack-middle"></div>
-        <div className="TeamScreen-management-slack-right">
+        <div className="individual-middle" />
+        <div className="individual-right">
           <div className="TeamScreen-management-slack-right-button">
             <a href="https://java.suken.io/slack/install">
               <img
@@ -215,7 +221,7 @@ function TeamScreen() {
         </div>
       </div>
       <div className="TeamScreen-management-timeSetting individual">
-        <div className="TeamScreen-management-timeSetting-left">
+        <div className="individual-left">
           <div className="TeamScreen-management-timeSetting-left-description">
             <h2>Question sending time</h2>
             <p>
@@ -225,8 +231,8 @@ function TeamScreen() {
             </p>
           </div>
         </div>
-        <div className="TeamScreen-management-timeSetting-middle"></div>
-        <div className="TeamScreen-management-timeSetting-right">
+        <div className="individual-middle"></div>
+        <div className="individual-right">
           <div className="TeamScreen-management-timeSetting-right-time">
             <input
               className="TeamScreen-management-timeSetting-right-time-input"

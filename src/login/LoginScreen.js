@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
 import AuthService from "../authentication/AuthService";
-import logo from "../svg/logo.svg";
 import users from "../svg/users.svg";
 import "./LoginScreen.css";
 
@@ -36,7 +35,7 @@ export default function LoginScreen() {
     setStatus("submitting");
     AuthService.login(email, password)
       .then(function(response) {
-        navigate("/graph");
+        navigate("/team");
       })
       .catch(function (error) {
         if (error.response && error.response.status === 400) {
@@ -50,35 +49,32 @@ export default function LoginScreen() {
 
   return (
     <div className="LoginScreen">
-      <div className="LoginScreen-left">
-        <img src={logo} className="LoginScreen-left-icon" alt="" />
-      </div>
-      <div className="LoginScreen-middle"></div>
-      <div className="LoginScreen-right">
-        <img src={users} className="LoginScreen-right-icon" alt="" />
-        <form className="LoginScreen-right-login-form" onSubmit={handleSubmit}>
-          <div className="LoginScreen-right-login-form-error">
+      <div className="LoginScreen-menu">
+        <img src={users} className="LoginScreen-menu-icon" alt="" />
+        <h2 className="LoginScreen-menu-name">Human DevOps</h2>
+        <form className="LoginScreen-menu-login-form" onSubmit={handleSubmit}>
+          <div className="LoginScreen-menu-login-form-error">
             <div
-              className="LoginScreen-right-login-form-error-message"
+              className="LoginScreen-menu-login-form-error-message"
               hidden={!emailFormatError}
             >
               Incorrect email format.
             </div>
             <div
-              className="LoginScreen-right-login-form-error-message"
+              className="LoginScreen-menu-login-form-error-message"
               hidden={!loginError}
             >
               Incorrect email or password.
             </div>
             <div
-              className="LoginScreen-right-login-form-error-message"
+              className="LoginScreen-menu-login-form-error-message"
               hidden={!unknownError}
             >
               Unexpected error when connecting with the application.
             </div>
           </div>
           <input
-            className="LoginScreen-right-login-form-input"
+            className="LoginScreen-menu-login-form-input"
             type="text"
             id="email"
             name="email"
@@ -88,7 +84,7 @@ export default function LoginScreen() {
             onChange={handleEmailChange}
           />
           <input
-            className="LoginScreen-right-login-form-input"
+            className="LoginScreen-menu-login-form-input"
             type="password"
             id="password"
             name="password"
@@ -99,7 +95,7 @@ export default function LoginScreen() {
           />
           <button
             type="submit"
-            className="LoginScreen-right-login-form-button"
+            className="LoginScreen-menu-login-form-button"
             disabled={
               email.length === 0 ||
               password.length === 0 ||
@@ -109,9 +105,9 @@ export default function LoginScreen() {
             Login
           </button>
         </form>
-        <div className="LoginScreen-right-signup">
+        <div className="LoginScreen-menu-signup">
           <p>Not a member?</p>
-          <a className="LoginScreen-right-signup-button" href="/signup">
+          <a className="LoginScreen-menu-signup-button link" href="/signup">
             Sign up
           </a>
         </div>

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
 import AuthService from "../authentication/AuthService";
-import logo from "../svg/logo.svg";
 import users from "../svg/users.svg";
 import "./SignupScreen.css";
 
@@ -68,50 +67,47 @@ export default function SignupScreen() {
 
   return (
     <div className="SignupScreen">
-      <div className="SignupScreen-left">
-        <img src={logo} className="SignupScreen-left-icon" alt="" />
-      </div>
-      <div className="SignupScreen-middle"></div>
-      <div className="SignupScreen-right">
-        <img src={users} className="SignupScreen-right-icon" alt="" />
+      <div className="SignupScreen-menu">
+        <img src={users} className="SignupScreen-menu-icon" alt="" />
+        <h2 className="SignupScreen-menu-title">Register</h2>
         <form
-          className="SignupScreen-right-signup-form"
+          className="SignupScreen-menu-signup-form"
           onSubmit={handleSubmit}
         >
-          <div className="SignupScreen-right-signup-form-error">
+          <div className="SignupScreen-menu-signup-form-error">
             <div
-              className="SignupScreen-right-signup-form-error-message"
+              className="SignupScreen-menu-signup-form-error-message"
               hidden={!emailFormatError}
             >
               Incorrect email format.
             </div>
             <div
-              className="SignupScreen-right-signup-form-error-message"
+              className="SignupScreen-menu-signup-form-error-message"
               hidden={!passwordFormatError}
             >
               The password has to be at least 6 characters long.
             </div>
             <div
-              className="SignupScreen-right-signup-form-error-message"
+              className="SignupScreen-menu-signup-form-error-message"
               hidden={!passwordRepetitionError}
             >
               Passwords do not match.
             </div>
             <div
-              className="SignupScreen-right-signup-form-error-message"
+              className="SignupScreen-menu-signup-form-error-message"
               hidden={!existingUserError}
             >
               The email is already registered in the application.
             </div>
             <div
-              className="SignupScreen-right-signup-form-error-message"
+              className="SignupScreen-menu-signup-form-error-message"
               hidden={!unknownError}
             >
               Unexpected error when connecting with the application.
             </div>
           </div>
           <input
-            className="SignupScreen-right-signup-form-input"
+            className="SignupScreen-menu-signup-form-input"
             type="text"
             id="email"
             name="email"
@@ -120,7 +116,7 @@ export default function SignupScreen() {
             onChange={handleEmailChange}
           />
           <input
-            className="SignupScreen-right-signup-form-input"
+            className="SignupScreen-menu-signup-form-input"
             type="password"
             id="password"
             name="password"
@@ -130,7 +126,7 @@ export default function SignupScreen() {
             onChange={handlePasswordChange}
           />
           <input
-            className="SignupScreen-right-signup-form-input"
+            className="SignupScreen-menu-signup-form-input"
             type="password"
             id="repeat-password"
             name="repeat-password"
@@ -141,15 +137,15 @@ export default function SignupScreen() {
           />
           <button
             type="submit"
-            className="SignupScreen-right-signup-form-button"
+            className="SignupScreen-menu-signup-form-button"
             disabled={submitting}
           >
             Sign up
           </button>
         </form>
-        <div className="SignupScreen-right-login">
+        <div className="SignupScreen-menu-login">
           <p>Have an account?</p>
-          <a className="SignupScreen-right-login-button" href="/login">
+          <a className="SignupScreen-menu-login-button link" href="/login">
             Log in
           </a>
         </div>

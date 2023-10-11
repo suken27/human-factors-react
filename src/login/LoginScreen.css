@@ -3,48 +3,32 @@
     flex-flow: row;
     height: 100vh;
     width: 100vw;
-    background-color: aquamarine;
+    background: linear-gradient(0deg, rgba(115,237,251,1) 0%, rgba(0,212,255,1) 100%);
 }
 
-.LoginScreen-left {
-    margin-top: auto;
-    margin-bottom: auto;
-    width: 50%;
-}
-
-.LoginScreen-left-icon {
-    height: 400px;
-}
-
-.LoginScreen-middle {
-    width: 1px;
-    height: 60%;
-    background-color: white;
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-.LoginScreen-right {
-    margin-top: auto;
-    margin-bottom: auto;
+.LoginScreen-menu {
     display: flex;
     flex-flow: column;
-    width: 50%;
+    width: 500px;
+    background-color: white;
+    border-radius: var(--border-radius);
+    margin: auto;
+    box-shadow: 0px 0px 20px gray;
 }
 
-.LoginScreen-right-icon {
+.LoginScreen-menu-icon {
     height: 200px;
     margin-bottom: 40px;
 }
 
-.LoginScreen-right-login-form {
+.LoginScreen-menu-login-form {
     display: flex;
     flex-flow: column;
     width: 70%;
     margin: auto;
 }
 
-.LoginScreen-right-login-form-error-message {
+.LoginScreen-menu-login-form-error-message {
     background-color: #fce6e6;
     margin: 10px;
     padding: 10px;
@@ -56,7 +40,7 @@
     text-align: left;
 }
 
-.LoginScreen-right-login-form-input {
+.LoginScreen-menu-login-form-input {
     margin: 10px;
     height: 20px;
     background-color: #f1f1f1;
@@ -65,12 +49,12 @@
     border-radius: 5px;
 }
 
-.LoginScreen-right-login-form-input:focus {
+.LoginScreen-menu-login-form-input:focus {
     background-color: #ddd;
     outline: none;
 }
 
-.LoginScreen-right-login-form-button {
+.LoginScreen-menu-login-form-button {
     width: 40%;
     height: 40px;
     margin: auto;
@@ -81,17 +65,17 @@
     margin-top: 30px;
 }
 
-.LoginScreen-right-login-form-button:hover {
+.LoginScreen-menu-login-form-button:hover {
     opacity: 1;
 }
 
-.LoginScreen-right-signup {
+.LoginScreen-menu-signup {
     display: flex;
     flex-direction: row;
     margin: auto;
 }
 
-.LoginScreen-right-signup-button {
+.LoginScreen-menu-signup-button {
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 10px;

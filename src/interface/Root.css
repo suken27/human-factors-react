@@ -27,6 +27,7 @@
     padding: 0px;
     text-align: left;
     margin-bottom: 30px;
+    display: flex;
 }
 
 .individual-left {
@@ -43,8 +44,12 @@
 .individual-right {
     background-color: whitesmoke;
     flex: 1;
-    padding-top: 32px;
+}
+
+.centered {
     text-align: center;
+    vertical-align: middle;
+    margin: auto;
 }
 
 .multi-input {
@@ -55,6 +60,7 @@
 .multi-input-full {
     padding: 30px;
     border-bottom: 1px solid #b6b6b6;
+    margin: 0px;
 }
 
 .multi-input-half {
@@ -72,6 +78,7 @@
 .multi-input-half-left {
     padding: 20px;
     flex: 1;
+    margin: auto;
 }
 
 .multi-input-half-middle {
@@ -90,6 +97,22 @@
     padding: 5px 20px;
 }
 
+.multi-input-error {
+    color: red;
+}
+
+.multi-input-success {
+    color: green;
+}
+
+.multi-input-messages {
+    font-size: 14px;
+    margin-top: 0px;
+    margin-bottom: 2px;
+    display: flex;
+    flex-direction: column;
+}
+
 input {
     font-size: 16px;
     padding: 10px;
@@ -97,6 +120,28 @@ input {
     border-radius: 5px;
 }
 
+h1 {
+    font-family: Verdana;
+    font-size: 40px;
+    font-weight: 300;
+}
+
+h2 {
+    font-family: Verdana;
+    font-size: 30px;
+    font-weight: 300;
+}
+
+h3 {
+    font-family: Verdana;
+    font-size: 20px;
+    font-weight: 300;
+}
+
 .title {
     text-align: left;
+}
+
+.link {
+    text-decoration: underline;
 }

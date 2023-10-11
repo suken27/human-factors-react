@@ -22,22 +22,17 @@
     width: 20px;
 }
 
-h2 {
-    margin: 0px;
-}
-
 .TeamScreen-members {
     padding: 50px;
-}
-
-.TeamScreen-members-title {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .TeamScreen-members-newMember-form {
     text-align: left;
     display: flex;
     margin-top: 40px;
+    width: 100%;
 }
 
 .TeamScreen-members-newMember-form-input {
@@ -59,26 +54,6 @@ h2 {
     border-radius: 5px;
     color: #a83030;
     text-align: left;
-}
-
-.TeamScreen-management-slack {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-}
-
-
-
-.TeamScreen-management-timeSetting {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-}
-
-.TeamScreen-management-timeSetting-right-time {
-    text-align: center;
-    height: 100%;
-    padding-top: 40px;
 }
 
 input[type="time" i]:hover {

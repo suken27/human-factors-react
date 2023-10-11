@@ -34,12 +34,18 @@ function ActionList({ actions }) {
 function ActionScreen() {
   const [actions, setActions] = useState([]);
   const [actionsRetrieveError, setActionsRetrieveError] = useState(false);
+  const [anyActions, setAnyActions] = useState(false);
 
   useEffect(() => {
     axios
       .get("https://java.suken.io/teams/actions", { headers: authHeader() })
       .then((response) => {
         setActions(response.data);
+        if(response.data === undefined || response.data.length === undefined || response.data.length === 0) {
+          setAnyActions(false);
+        } else {
+          setAnyActions(true);
+        }
       })
       .catch((error) => {
         setActionsRetrieveError(true);
@@ -52,9 +58,13 @@ function ActionScreen() {
       <div className="error" hidden={!actionsRetrieveError}>
         <h3 className="error">Retrieve error</h3>
       </div>
-      <div className="no-error" hidden={actionsRetrieveError}>
+      <div className="error" hidden={anyActions}>
+        <h3 className="error">Incomplete team measurement</h3>
+        <p>Your team does not have enough human factor measurements to provide any action recommendations. Keep answering daily questions and recommendations will start to appear.</p>
+      </div>
+      <div className="no-error" hidden={actionsRetrieveError || !anyActions}>
         <h3 className="Actions-title">Recommended actions</h3>
-        <div className="Actions-list" hidden={actions.length === 0}>
+        <div className="Actions-list">
           <ActionList actions={actions} />
         </div>
       </div>

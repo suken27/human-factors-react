@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-right: 1px solid #b6b6b6;
-    background-color: white;
+    border-right: var(--border);
+    background-color: var(--bg);
     position: fixed;
     top: 60px;
     height: 100%;
@@ -11,9 +11,9 @@
 
 .SlideBar-button {
     margin: 5px;
-    padding: 15px;
-    width: 30px;
-    height: 40px;
+    padding: 10px;
+    width: 35px;
+    height: 45px;
     border-radius: 6px;
 }
 
@@ -29,8 +29,9 @@
 
 a.SlideBar-button {
     text-decoration: none;
+    text-align: center;
 }
 
 .SlideBar-button-icon {
-    width: 100%;
+    width: 90%;
 }

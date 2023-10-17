@@ -56,7 +56,7 @@ we always go back to main container and we use secondary as name for more contai
 						href="/login"
 						onClick={handleLogout}
 					>
-						LogOut
+						Log Out
 					</DropdownItem>
 				</div>
 			</CSSTransition>

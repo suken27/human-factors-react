@@ -8,7 +8,7 @@ const Navbar = (props) => {
 			<ul className="navbar-logo">
 				<a className="NavBar-logo-link">
 					<img src={logo} className="NavBar-logo" alt="logo" />
-					<h3>Human DevOps</h3>
+					<h3 className="NavBar-title">Human DevOps</h3>
 				</a>
 			</ul>
 			<ul className="navbar-nav">{props.children}</ul>

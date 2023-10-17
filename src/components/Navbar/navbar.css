@@ -22,6 +22,10 @@
   flex-direction: row;
 }
 
+.NavBar-title {
+  margin: auto;
+}
+
 .navbar-nav {
   max-width: 100%;
   height: 100%;

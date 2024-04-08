@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import GraphComponent from "./GraphComponent";
 import "./GraphScreen.css";
 
-function GraphScreen() {
+const GraphScreen = () => {
+
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+
   useEffect(() => {
     const dataURL =
       " https://d3js-in-action-third-edition.github.io/hosted-data/apis/front_end_frameworks.json";
@@ -18,7 +20,7 @@ function GraphScreen() {
       }
     });
     return () => mounted = false;
-  });
+  }, []);
 
   return (
     <div className="container">

@@ -1,11 +1,9 @@
-import network from "../svg/network_diagram.svg";
+import GraphComponent from "./GraphComponent";
 import "./GraphScreen.css";
 
 function GraphScreen() {
     return(
-        <div className="GraphScreen">
-            <img src={network} className="GraphScreen-stub" />
-        </div>
+        <GraphComponent />
     );
 }
 

@@ -1,4 +1,7 @@
+import d3 from "d3";
+import Axis from "./Axis";
 import ChartContainer from "./ChartContainer";
+import Circle from "./Circle";
 
 const ScatterplotReactControlled = (props) => {
   const width = 300;
@@ -14,9 +17,24 @@ const ScatterplotReactControlled = (props) => {
   const yScale = d3.scaleLinear().domain([0, 100]).range([innerHeight, 0]);
 
   return (
-    <Card>
+    <div>
       <h2>Retention vs Usage</h2>
       <ChartContainer width={width} height={height} margin={props.margin}>
+        <Axis
+          type="bottom"
+          scale={xScale}
+          innerWidth={innerWidth}
+          innerHeight={innerHeight}
+          label={"User Count"}
+        />
+
+        <Axis
+          type="left"
+          scale={yScale}
+          innerWidth={innerWidth}
+          innerHeight={innerHeight}
+          label={"Retention %"}
+        />
         {props.data.map((framework) => (
           <Circle
             key={`circle-${framework.id}`}
@@ -27,7 +45,7 @@ const ScatterplotReactControlled = (props) => {
           />
         ))}
       </ChartContainer>
-    </Card>
+    </div>
   );
 };
 

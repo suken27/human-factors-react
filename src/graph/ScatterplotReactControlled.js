@@ -1,4 +1,5 @@
-import d3 from "d3";
+import * as d3 from "d3";
+import PropTypes from "prop-types";
 import Axis from "./Axis";
 import ChartContainer from "./ChartContainer";
 import Circle from "./Circle";
@@ -47,6 +48,16 @@ const ScatterplotReactControlled = (props) => {
       </ChartContainer>
     </div>
   );
+};
+
+ScatterplotReactControlled.propTypes = {
+  margin: PropTypes.shape({
+    top: PropTypes.number.isRequired,
+    right: PropTypes.number.isRequired,
+    bottom: PropTypes.number.isRequired,
+    left: PropTypes.number.isRequired
+  }).isRequired,
+  data: PropTypes.array.isRequired
 };
 
 export default ScatterplotReactControlled;

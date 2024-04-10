@@ -1,25 +1,30 @@
-import * as d3 from "d3";
+import axios from "axios";
 import { useEffect, useState } from "react";
+import authHeader from "../authentication/authHeader";
 import GraphComponent from "./GraphComponent";
 import "./GraphScreen.css";
 
 const GraphScreen = () => {
-
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const dataURL =
-      " https://d3js-in-action-third-edition.github.io/hosted-data/apis/front_end_frameworks.json";
+    const dataURL = "https://java.suken.io/humanfactor";
     let mounted = true;
-    d3.json(dataURL).then((data) => {
-      if (mounted) {
-        setData(data);
-        setLoading(false);
-        console.log(data);
-      }
-    });
-    return () => mounted = false;
+    // TODO: Use the data properly
+    axios
+      .get(dataURL, { headers: authHeader() })
+      .then((data) => {
+        if (mounted) {
+          setData(data);
+          setLoading(false);
+          console.log(data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    return () => (mounted = false);
   }, []);
 
   return (
@@ -27,7 +32,7 @@ const GraphScreen = () => {
       {loading && <div className="loading">Loading...</div>}
       {!loading && <GraphComponent data={data} />}
     </div>
-  )
-}
+  );
+};
 
 export default GraphScreen;

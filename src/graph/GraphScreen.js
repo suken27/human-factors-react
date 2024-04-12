@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import authHeader from "../authentication/authHeader";
-import GraphComponent from "./GraphComponent";
 import "./GraphScreen.css";
+import { Network } from "./Network";
 
 const GraphScreen = () => {
   const [loading, setLoading] = useState(true);
@@ -16,8 +16,12 @@ const GraphScreen = () => {
       .get(dataURL, { headers: authHeader() })
       .then((data) => {
         if (mounted) {
-          setData(data);
+          const array = {
+            nodes: data
+          };
+          setData(array);
           setLoading(false);
+          // TODO: Remove the console.log
           console.log(data);
         }
       })
@@ -30,7 +34,7 @@ const GraphScreen = () => {
   return (
     <div className="container">
       {loading && <div className="loading">Loading...</div>}
-      {!loading && <GraphComponent data={data} />}
+      {!loading && <Network width={300} height={300} data={data.data} />}
     </div>
   );
 };

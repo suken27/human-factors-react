@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = "https://java.suken.io/";
 
 class AuthService {
-  login(email, password) {
+  login(email : string, password : string) {
     return new Promise((resolve, reject) => {
         axios
           .post(API_URL + "login", {
@@ -27,7 +27,7 @@ class AuthService {
     localStorage.removeItem("token");
   }
 
-  register(email, password) {
+  register(email : string, password : string) {
     return new Promise((resolve, reject) => {
       setTimeout(function () {
         axios

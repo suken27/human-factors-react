@@ -3,14 +3,23 @@ import { useEffect, useState } from "react";
 import validator from "validator";
 import AuthService from "../authentication/AuthService";
 import authHeader from "../authentication/authHeader";
-import trash from "../svg/trash.svg";
 import "./TeamScreen.css";
 
-function TeamMember({ email, members, setMembers, setMemberRemovalError }) {
+interface TeamMemberProps {
+	email: string;
+	members: any[]; // Replace 'any' with the appropriate type for the 'members' prop
+	setMembers: (members: any[]) => void; // Replace 'any' with the appropriate type for the 'setMembers' prop
+	setMemberRemovalError: (error: boolean) => void; // Replace 'any' with the appropriate type for the 'setMemberRemovalError' prop
+}
+
+const TeamMember = ({ email, members, setMembers, setMemberRemovalError }: TeamMemberProps) => {
+
+	const {default: trash} = require("../svg/trash.svg") as {default: string};
+
 	function handleRemove() {
 		setMemberRemovalError(false);
 		const postHeaders = authHeader();
-		postHeaders["Content-Type"] = "text/plain";
+		postHeaders['Content-Type'] = "text/plain";
 		axios
 			.delete("https://java.suken.io/teams/" + email, {
 				headers: postHeaders,
@@ -44,7 +53,7 @@ function TeamMember({ email, members, setMembers, setMemberRemovalError }) {
 	);
 }
 
-function TeamScreen() {
+export const TeamScreen = () => {
 	const [members, setMembers] = useState([]);
 	const [teamRetrieveError, setTeamRetrieveError] = useState(false);
 	const [newMemberEmail, setNewMemberEmail] = useState("");
@@ -56,13 +65,12 @@ function TeamScreen() {
 	const [integrationCompleted, setIntegrationCompleted] = useState(false);
 
 	function handleNewMember(e) {
-		e.preventDefault();
 		if (!validator.isEmail(newMemberEmail)) {
 			setEmailFormatError(true);
 			return;
 		}
 		if (
-			members.find((element) => element.email === newMemberEmail) !== undefined
+			members.find((element: { email: string }) => element.email === newMemberEmail) !== undefined
 		) {
 			setExistingMemberError(true);
 			return;
@@ -106,10 +114,10 @@ function TeamScreen() {
 			});
 	}
 
-	function ListMembers() {
-		const rows = [];
+	function ListMembers() : JSX.Element[] {
+		const rows: JSX.Element[] = [];
 		if (members !== undefined) {
-			members.forEach((member) => {
+			members.forEach((member : TeamMemberProps) => {
 				rows.push(
 					<TeamMember
 						email={member.email}
@@ -252,5 +260,3 @@ function TeamScreen() {
 		</div>
 	);
 }
-
-export default TeamScreen;

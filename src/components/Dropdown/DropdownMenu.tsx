@@ -1,25 +1,25 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { HiOutlineCog } from "react-icons/hi";
 import { IoIosLogOut } from "react-icons/io";
 import { CSSTransition } from "react-transition-group";
 import AuthService from "../../authentication/AuthService";
-import DropdownItem from "./DropdownItem";
+import { DropdownItem } from "./DropdownItem";
 import "./DropdownMenu.css";
 
 function handleLogout() {
 	AuthService.logout();
 }
 
-const DropdownMenu = () => {
+export const DropdownMenu = () => {
 	// state for csstransition
 	const [active, setActive] = useState("main");
-	const [menuHeight, setMenuHeight] = useState(null);
+	const [menuHeight, setMenuHeight] = useState<number>();
 
 	/*we use this function as a callback in CSSTransition onEnter prop which runs this callback when it is
   mounted to DOM
   */
 
-	function calcHeight(el) {
+	function calcHeight(el : HTMLElement) {
 		// el.offsetHeight is height in pixels of that component. we use this in dropdown menu style height to set height
 		const height = el.offsetHeight;
 		console.log(height);
@@ -27,7 +27,7 @@ const DropdownMenu = () => {
 	}
 
 	return (
-		<div className="dropdown" style={{ height: menuHeight }}>
+		<div className="dropdown" style={{ height : menuHeight }}>
 			{/* 
 There are two dropdown containers for csstransitions component main and secondary.
 we always go back to main container and we use secondary as name for more container because we can style easy
@@ -64,5 +64,3 @@ we always go back to main container and we use secondary as name for more contai
 		</div>
 	);
 };
-
-export default DropdownMenu;

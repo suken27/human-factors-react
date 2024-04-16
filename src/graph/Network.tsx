@@ -1,8 +1,8 @@
 import * as d3 from "d3";
 import PropTypes from "prop-types";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { RADIUS, drawNetwork } from "./DrawNetwork";
-import { Data } from "./GraphData";
+import { Data, Node } from "./GraphData";
 
 type NetworkProps = {
   width: number;

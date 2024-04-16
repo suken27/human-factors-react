@@ -1,8 +1,9 @@
-import React from "react";
-import logo from '../../svg/logo.svg';
 import "./navbar.css";
 
-const Navbar = (props) => {
+export const Navbar = (props : any) => {
+
+	const {default: logo} = require("../../svg/logo.svg") as {default: string};
+
 	return (
 		<nav className="navbar">
 			<ul className="navbar-logo">
@@ -15,5 +16,3 @@ const Navbar = (props) => {
 		</nav>
 	);
 };
-
-export default Navbar;

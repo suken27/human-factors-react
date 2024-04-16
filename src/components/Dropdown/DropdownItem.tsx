@@ -1,9 +1,7 @@
-import React from "react";
 import "./DropdownItem.css";
 
-const DropdownItem = (props) => {
+export const DropdownItem = (props : any) => {
   return (
-    <>
       <a
         className="menu-item"
         href={props.href}
@@ -11,8 +9,5 @@ const DropdownItem = (props) => {
         <span className="icon-button">{props.leftIcon}</span>
         {props.children}
       </a>
-    </>
   );
 };
-
-export default DropdownItem;

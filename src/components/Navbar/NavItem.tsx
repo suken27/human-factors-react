@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./navItem.css";
 
-const NavItem = (props) => {
+export const NavItem = (props : any) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -13,5 +13,3 @@ const NavItem = (props) => {
     </li>
   );
 };
-
-export default NavItem;

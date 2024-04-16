@@ -1,9 +1,11 @@
-import graph from "../svg/graph.svg";
-import users from "../svg/users.svg";
-import warning from "../svg/warning.svg";
 import "./SlideBar.css";
 
-function SlideBar() {
+export const SlideBar = () => {
+
+	const {default: graph} = require("../svg/graph.svg") as {default: string};
+	const {default: users} = require("../svg/users.svg") as {default: string};
+	const {default: warning} = require("../svg/warning.svg") as {default: string};
+
 	return (
 		<div className="SlideBar">
 			<a href="/graph" className="SlideBar-button">
@@ -33,5 +35,3 @@ function SlideBar() {
 		</div>
 	);
 }
-
-export default SlideBar;

@@ -8,7 +8,7 @@ import "./TeamScreen.css";
 interface TeamMemberProps {
 	email: string;
 	members: any[]; // Replace 'any' with the appropriate type for the 'members' prop
-	setMembers: (members: any[]) => void; // Replace 'any' with the appropriate type for the 'setMembers' prop
+	setMembers: any; // Replace 'any' with the appropriate type for the 'setMembers' prop
 	setMemberRemovalError: (error: boolean) => void; // Replace 'any' with the appropriate type for the 'setMemberRemovalError' prop
 }
 
@@ -64,7 +64,7 @@ export const TeamScreen = () => {
 	const [questionTime, setQuestionTime] = useState("");
 	const [integrationCompleted, setIntegrationCompleted] = useState(false);
 
-	function handleNewMember(e) {
+	function handleNewMember(e : any) {
 		if (!validator.isEmail(newMemberEmail)) {
 			setEmailFormatError(true);
 			return;
@@ -94,11 +94,11 @@ export const TeamScreen = () => {
 			});
 	}
 
-	function handleNewMemberEmailChange(e) {
+	function handleNewMemberEmailChange(e : any) {
 		setNewMemberEmail(e.target.value);
 	}
 
-	function handleQuestionTimeChange(e) {
+	function handleQuestionTimeChange(e : any) {
 		setQuestionTime(e.target.value);
 		const postHeaders = authHeader();
 		postHeaders["Content-Type"] = "text/plain";
@@ -117,7 +117,7 @@ export const TeamScreen = () => {
 	function ListMembers() : JSX.Element[] {
 		const rows: JSX.Element[] = [];
 		if (members !== undefined) {
-			members.forEach((member : TeamMemberProps) => {
+			members.forEach((member : any) => {
 				rows.push(
 					<TeamMember
 						email={member.email}

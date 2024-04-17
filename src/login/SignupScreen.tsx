@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
 import AuthService from "../authentication/AuthService";
-import users from "../svg/users.svg";
 import "./SignupScreen.css";
 
 export default function SignupScreen() {
+
+  const {default: users} = require("../svg/users.svg") as {default: string};
+
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -18,23 +20,23 @@ export default function SignupScreen() {
   const [unknownError, setUnknownError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  function handleEmailChange(e) {
+  function handleEmailChange(e : any) {
     setEmail(e.target.value);
   }
 
-  function handlePasswordChange(e) {
+  function handlePasswordChange(e : any) {
     setPassword(e.target.value);
   }
 
-  function handlePassword2Change(e) {
+  function handlePassword2Change(e : any) {
     setPassword2(e.target.value);
   }
 
-  function validPassword(password) {
+  function validPassword(password : string) {
     return password.length > 5;
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e : any) {
     e.preventDefault();
     if (!validator.isEmail(email)) {
       setEmailFormatError(true);
@@ -54,7 +56,7 @@ export default function SignupScreen() {
     setUnknownError(false);
     setSubmitting(true);
     AuthService.register(email, password)
-      .then(navigate("/login"))
+      .then(() => navigate("/login"))
       .catch(function (error) {
         setSubmitting(false);
         if (error.response && error.response.status === 400) {

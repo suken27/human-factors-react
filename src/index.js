@@ -11,7 +11,7 @@ import SignupScreen from "./login/SignupScreen";
 import ActionScreen from "./recommendation/Actions";
 import reportWebVitals from "./reportWebVitals";
 import SettingsScreen from "./settings/SettingsScreen";
-import TeamScreen from "./team/TeamScreen";
+import { TeamScreen } from "./team/TeamScreen";
 
 const router = createBrowserRouter(
   [

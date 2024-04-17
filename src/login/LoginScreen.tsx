@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
 import AuthService from "../authentication/AuthService";
-import users from "../svg/users.svg";
 import "./LoginScreen.css";
 
 export default function LoginScreen() {
+
+  const {default: users} = require("../svg/users.svg") as {default: string};
+
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -15,15 +17,15 @@ export default function LoginScreen() {
   const [loginError, setLoginError] = useState(false);
   const [unknownError, setUnknownError] = useState(false);
 
-  function handleEmailChange(e) {
+  function handleEmailChange(e : any) {
     setEmail(e.target.value);
   }
 
-  function handlePasswordChange(e) {
+  function handlePasswordChange(e : any) {
     setPassword(e.target.value);
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e : any) {
     e.preventDefault();
     if (!validator.isEmail(email)) {
       setEmailFormatError(true);

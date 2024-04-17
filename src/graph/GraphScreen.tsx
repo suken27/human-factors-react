@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import authHeader from "../authentication/authHeader";
+import { Data } from "./GraphData";
 import "./GraphScreen.css";
 import { Network } from "./Network";
 
 const GraphScreen = () => {
+
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Data>();
 
   useEffect(() => {
     const dataURL = "https://java.suken.io/humanfactor";
@@ -16,8 +18,8 @@ const GraphScreen = () => {
       .get(dataURL, { headers: authHeader() })
       .then((data) => {
         if (mounted) {
-          const array = {
-            nodes: data
+          const array : Data = {
+            nodes : data.data
           };
           setData(array);
           setLoading(false);
@@ -28,13 +30,15 @@ const GraphScreen = () => {
       .catch((error) => {
         console.log(error);
       });
-    return () => (mounted = false);
+    return () => {
+      mounted = false;
+    }
   }, []);
 
   return (
     <div className="container">
       {loading && <div className="loading">Loading...</div>}
-      {!loading && <Network width={300} height={300} data={data.data} />}
+      {!loading && <Network width={300} height={300} data={data} />}
     </div>
   );
 };

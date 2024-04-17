@@ -114,8 +114,8 @@ export const TeamScreen = () => {
 			});
 	}
 
-	function ListMembers() : JSX.Element[] {
-		const rows: JSX.Element[] = [];
+	function ListMembers() : any {
+		const rows : any = [];
 		if (members !== undefined) {
 			members.forEach((member : any) => {
 				rows.push(

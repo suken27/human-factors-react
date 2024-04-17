@@ -38,7 +38,7 @@ const GraphScreen = () => {
   return (
     <div className="container">
       {loading && <div className="loading">Loading...</div>}
-      {!loading && <Network width={300} height={300} data={data} />}
+      {!loading && data !== undefined && <Network width={300} height={300} data={data} />}
     </div>
   );
 };

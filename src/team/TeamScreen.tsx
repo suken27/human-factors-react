@@ -224,7 +224,7 @@ export const TeamScreen = () => {
 				</div>
 				<div className="individual-middle" hidden={integrationCompleted} />
 				<div className="individual-right" hidden={integrationCompleted} >
-					<a href="https://java.suken.io/slack/install">
+					<a className="centered" href="https://java.suken.io/slack/install">
 						<img
 							alt="Add to Slack"
 							height="40"

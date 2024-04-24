@@ -13,12 +13,8 @@
 
 .Root-content {
     max-width: 1600px;
-    padding: 50px;
-    margin-top: 61px;
-    padding: 40px;
-    padding-left: 110px;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 50px 110px;
+    margin: 61px auto;
 }
 
 .individual {
@@ -46,10 +42,17 @@
     flex: 1;
 }
 
+.container-full {
+    border: 1px solid #b6b6b6;
+    border-radius: 5px;
+}
+
 .centered {
     text-align: center;
-    vertical-align: middle;
+    justify-content: center;
+    align-items: center;
     margin: auto;
+    display: flex;
 }
 
 .multi-input {

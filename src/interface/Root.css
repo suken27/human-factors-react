@@ -9,12 +9,15 @@
     display: flex;
     flex-flow: row;
     flex: 1 1 auto;
+    margin-top: 61px;
 }
 
 .Root-content {
     max-width: 1600px;
     padding: 50px 110px;
-    margin: 61px auto;
+    margin-left: 66px;
+    display: flex;
+    width: 100%;
 }
 
 .individual {
@@ -40,11 +43,14 @@
 .individual-right {
     background-color: whitesmoke;
     flex: 1;
+    display: flex;
 }
 
 .container-full {
     border: 1px solid #b6b6b6;
     border-radius: 5px;
+    display: flex;
+    width: 100%;
 }
 
 .centered {

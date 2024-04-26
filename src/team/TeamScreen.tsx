@@ -210,7 +210,7 @@ export const TeamScreen = () => {
 					</button>
 				</form>
 			</div>
-			<div className="TeamScreen-management-slack individual">
+			<div className="individual">
 				<div className="individual-left">
 					<h2>Slack integration</h2>
 					<p hidden={integrationCompleted}>

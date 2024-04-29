@@ -50,7 +50,8 @@
     border: 1px solid #b6b6b6;
     border-radius: 5px;
     display: flex;
-    width: 100%;
+    flex: 1;
+    flex-direction: column;
 }
 
 .centered {
@@ -145,6 +146,10 @@ h3 {
     font-family: Verdana;
     font-size: 20px;
     font-weight: 300;
+}
+
+canvas {
+    flex: 1;
 }
 
 .title {

@@ -1,4 +1,13 @@
-const Circle = (props) => {
+interface CircleProps {
+  cx?: number;
+  cy?: number;
+  r: number;
+  fill: string;
+  stroke?: string;
+  strokeWidth?: number;
+}
+
+export const Circle = (props: CircleProps) => {
   return (
     <circle
       cx={props.cx}
@@ -10,4 +19,3 @@ const Circle = (props) => {
     />
   );
 };
-export default Circle;

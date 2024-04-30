@@ -5,7 +5,7 @@
 }
 
 .Root-belowNavBar {
-    background-color: white;
+    background-color: var(--bg);
     display: flex;
     flex-flow: row;
     flex: 1 1 auto;
@@ -21,8 +21,8 @@
 }
 
 .individual {
-    border: 1px solid #b6b6b6;
-    border-radius: 5px;
+    border: var(--border);
+    border-radius: var(--border-radius);
     padding: 0px;
     text-align: left;
     margin-bottom: 30px;
@@ -47,8 +47,8 @@
 }
 
 .container-full {
-    border: 1px solid #b6b6b6;
-    border-radius: 5px;
+    border: var(--border);
+    border-radius: var(--border-radius);
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -69,7 +69,7 @@
 
 .multi-input-full {
     padding: 30px;
-    border-bottom: 1px solid #b6b6b6;
+    border-bottom: var(--border);
     margin: 0px;
 }
 
@@ -123,11 +123,15 @@
     flex-direction: column;
 }
 
+.flex1 {
+    flex: 1;
+}
+
 input {
     font-size: 16px;
     padding: 10px;
-    border: 1px solid #b6b6b6;
-    border-radius: 5px;
+    border: var(--border);
+    border-radius: var(--border-radius);
 }
 
 h1 {
@@ -146,10 +150,6 @@ h3 {
     font-family: Verdana;
     font-size: 20px;
     font-weight: 300;
-}
-
-canvas {
-    flex: 1;
 }
 
 .title {

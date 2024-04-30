@@ -1,30 +1,43 @@
 import PropTypes from "prop-types";
-import { Fragment, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Data } from "./GraphData";
 import { drawNetwork } from "./drawNetwork";
 
 type NetworkProps = {
-  width: number;
-  height: number;
   data: Data;
 };
 
-export const Network = ({ width, height, data }: NetworkProps) => {
-  const svgRef = useRef(null);
+export const Network = ({ data }: NetworkProps) => {
+  const [width, setWidth] = useState<any>(null);
+  const [height, setHeight] = useState<any>(null);
+
+  const svgRef = useRef<any>(null);
+
+  useEffect(() => {
+    function updateSize() {
+      if (svgRef.current) {
+        setWidth(window.innerWidth - 400);
+        setHeight(window.innerHeight - 300);
+      }
+    }
+    window.addEventListener("resize", updateSize);
+    updateSize();
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
 
   useEffect(() => {
     drawNetwork({ data, width, height, svgRef });
   });
 
-
-
   return (
-    <Fragment>
+    <div className="flex1" style={{display: "flex", flexDirection: "column"}}>
       <h2>Network</h2>
-      <svg width={width} height={height} ref={svgRef}>
-        <g className="nodes" style={{ stroke: "#000", strokeOpacity: 0.5 }} />
-      </svg>
-    </Fragment>
+      <div className="flex1" ref={svgRef}>
+        <svg width={width} height={height}>
+          <g className="nodes" />
+        </svg>
+      </div>
+    </div>
   );
 };
 

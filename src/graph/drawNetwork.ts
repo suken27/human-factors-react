@@ -19,11 +19,7 @@ export function drawNetwork({
   height: number;
   svgRef: any;
 }) {
-  const marginLeft = 10;
-  const marginRight = 10;
-  const marginTop = 10;
-  const marginBottom = 10;
-  const padding = 3;
+
   const stroke = null; // a static stroke around the bubbles
   const strokeWidth = null; // the stroke width around the bubbles, if any
   const strokeOpacity = null; //
@@ -31,15 +27,17 @@ export function drawNetwork({
   const colors = interpolateWarm;
 
   const D = data.nodes.map((d) => d);
+  console.log(D);
 
   // TODO: This d.id.length should instead use a value for the "importance" of a human factor
-  const V = data.nodes.map((d) => d.id.length);
+  const V = data.nodes.map((d) => d.title.length);
+  console.log(V);
 
   const I = range(V.length).filter((i) => V[i] > 0);
+  console.log(I);
 
   const root = pack()
-    .size([width - marginLeft - marginRight, height - marginTop - marginBottom])
-    .padding(padding)(hierarchy<any>({ children: I }).sum((i) => V[i]));
+    .size([width - 20, height - 20]).padding(3)(hierarchy<any>({ children: I }).sum((i) => V[i]));
 
   const nodes = select(svgRef.current).select("g.nodes");
 

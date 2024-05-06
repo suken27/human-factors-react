@@ -4,7 +4,7 @@ import {
   interpolateWarm,
   pack,
   range,
-  select
+  select,
 } from "d3";
 import { Data } from "./GraphData";
 
@@ -19,7 +19,6 @@ export function drawNetwork({
   height: number;
   svgRef: any;
 }) {
-
   const stroke = null; // a static stroke around the bubbles
   const strokeWidth = null; // the stroke width around the bubbles, if any
   const strokeOpacity = null; //
@@ -30,20 +29,37 @@ export function drawNetwork({
   console.log(D);
 
   // TODO: This d.id.length should instead use a value for the "importance" of a human factor
-  const V = data.nodes.map((d) => d.title.length);
+  // Array with the "values" of the nodes, in the end this affects the radius of the circles
+  const V = data.nodes.map(() => 1);
   console.log(V);
 
   const I = range(V.length).filter((i) => V[i] > 0);
   console.log(I);
 
   const root = pack()
-    .size([width - 20, height - 20]).padding(3)(hierarchy<any>({ children: I }).sum((i) => V[i]));
+    .size([width - 20, height - 20])
+    .padding(3)(hierarchy<any>({ children: I }).sum((i) => V[i]));
 
-  const nodes = select(svgRef.current).select("g.nodes");
+  // Create a new array and merge the data from D and root.leaves()
+  const graphData = root.leaves().map((leaf, index) => {
+    return {
+      ...D[index], // spread the properties of the corresponding object in D
+      ...leaf, // spread the properties of the leaf
+    };
+  });
+  console.log(graphData);
 
-  nodes
+  // Create a dictionary with 'id' as the key and the object itself as the value
+  const nodesDict = graphData.reduce((acc, obj) => {
+    acc[obj.id] = obj;
+    return acc;
+  }, {} as { [key: string]: (typeof graphData)[0] });
+  console.log(nodesDict);
+
+  select(svgRef.current)
+    .select("g.nodes")
     .selectAll("a")
-    .data(root.leaves())
+    .data(graphData)
     .join(
       (enter: any): any => {
         const a = enter.append("a");
@@ -58,9 +74,12 @@ export function drawNetwork({
           .attr("stroke", stroke)
           .attr("stroke-width", strokeWidth)
           .attr("stroke-opacity", strokeOpacity)
-          .attr("fill", (d: any) => colors(d.data / D.length))
+          .attr("fill", (d: any) =>
+            d.fullyMeasured ? colors(d.score) : "gray"
+          )
           .attr("fill-opacity", fillOpacity)
           .attr("r", (d: any) => d.r);
+        a.append("title").text((d: any) => `${d.title}`);
       },
       (update: any): any => {
         update
@@ -76,12 +95,47 @@ export function drawNetwork({
           .attr("stroke", stroke)
           .attr("stroke-width", strokeWidth)
           .attr("stroke-opacity", strokeOpacity)
-          .attr("fill", (d: any) => colors(d.data / D.length))
+          .attr("fill", (d: any) =>
+            d.fullyMeasured ? colors(d.score) : "gray"
+          )
           .attr("fill-opacity", fillOpacity)
           .attr("r", (d: any) => d.r);
+        update.append("title").text((d: any) => `${d.title}`);
       },
       (exit: any): void => {
         exit.transition(easeLinear).duration(500).remove();
+      }
+    );
+
+  select(svgRef.current)
+    .select("g.links")
+    .selectAll("line")
+    .data(data.links)
+    .join(
+      (enter: any): any => {
+        const l = enter.append("line");
+        l.transition(easeLinear)
+          .delay(500)
+          .duration(500)
+          .attr("stroke", "black")
+          .attr("stroke-width", 1)
+          .attr("x1", (d: any) => nodesDict[d.source].x)
+          .attr("y1", (d: any) => nodesDict[d.source].y)
+          .attr("x2", (d: any) => nodesDict[d.target].x)
+          .attr("y2", (d: any) => nodesDict[d.target].y);
+      },
+      (update: any): any => {
+        update
+          .transition(easeLinear)
+          .delay(500)
+          .duration(500)
+          .attr("x1", (d: any) => nodesDict[d.source].x)
+          .attr("y1", (d: any) => nodesDict[d.source].y)
+          .attr("x2", (d: any) => nodesDict[d.target].x)
+          .attr("y2", (d: any) => nodesDict[d.target].y);
+      },
+      (exit: any): void => {
+        exit.transition(easeLinear).duration(500).style("opacity", 0).remove();
       }
     );
 }

@@ -17,8 +17,15 @@ const GraphScreen = () => {
       .get(dataURL, { headers: authHeader() })
       .then((data) => {
         if (mounted) {
+          const links = data.data.flatMap((node: any) =>
+            node.affectsTo.map((affectedId: any) => ({
+              source: node.id,
+              target: affectedId,
+            }))
+          );
           const array: Data = {
             nodes: data.data,
+            links: links
           };
           setData(array);
           setLoading(false);

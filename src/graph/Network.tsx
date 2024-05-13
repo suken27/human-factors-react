@@ -35,6 +35,7 @@ export const Network = ({ data }: NetworkProps) => {
       <div className="flex1" ref={svgRef}>
         <svg width={width} height={height}>
           <g className="nodes" />
+          <g className="links" />
         </svg>
       </div>
     </div>

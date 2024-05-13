@@ -1,11 +1,13 @@
 import {
-  easeLinear,
-  hierarchy,
-  interpolateWarm,
-  pack,
-  range,
-  select,
+  forceCenter,
+  forceCollide,
+  forceLink,
+  forceManyBody,
+  forceSimulation,
+  interpolateRdYlGn,
+  select
 } from "d3";
+
 import { Data } from "./GraphData";
 
 export function drawNetwork({
@@ -19,123 +21,81 @@ export function drawNetwork({
   height: number;
   svgRef: any;
 }) {
-  const stroke = null; // a static stroke around the bubbles
-  const strokeWidth = null; // the stroke width around the bubbles, if any
-  const strokeOpacity = null; //
+
   const fillOpacity = 0.7;
-  const colors = interpolateWarm;
+  const colors = interpolateRdYlGn;
 
-  const D = data.nodes.map((d) => d);
-  console.log(D);
+  const nodes = data.nodes.map((d) => Object.create(d));
+  const links = data.links.map((d) => Object.create(d));
 
-  // TODO: This d.id.length should instead use a value for the "importance" of a human factor
-  // Array with the "values" of the nodes, in the end this affects the radius of the circles
-  const V = data.nodes.map(() => 1);
-  console.log(V);
+  const tooltip = select(svgRef.current)
+  .select("g.nodes")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
 
-  const I = range(V.length).filter((i) => V[i] > 0);
-  console.log(I);
+  // Three function that change the tooltip when user hover / move / leave a cell
+  const mouseover = function() {
+    tooltip
+      .style("opacity", 1);
+  }
+  const mousemove = function(event: any, d: any) {
+    tooltip
+      .html(d.title)
+      .style("left", event.pageX + 70 + "px")
+      .style("top", event.pageY + 70 + "px")
+  }
+  const mouseleave = function() {
+    tooltip
+      .style("opacity", 0);
+  }
 
-  const root = pack()
-    .size([width - 20, height - 20])
-    .padding(3)(hierarchy<any>({ children: I }).sum((i) => V[i]));
+  const simulation = forceSimulation(nodes)
+      .force(
+        "link",
+        forceLink(links).id((d: any) => d.id)
+      )
+      .force("charge", forceManyBody().strength(-10))
+      .force("collide", forceCollide(10))
+      .force("center", forceCenter(width / 2, height / 2));
 
-  // Create a new array and merge the data from D and root.leaves()
-  const graphData = root.leaves().map((leaf, index) => {
-    return {
-      ...D[index], // spread the properties of the corresponding object in D
-      ...leaf, // spread the properties of the leaf
-    };
-  });
-  console.log(graphData);
+  const linksG = select(svgRef.current)
+    .select("g.links")
+    .attr("stroke", "gray")
+    .attr("stroke-width", 1)
+    .attr("stroke-opacity", 0.5)
+    .selectAll("line")
+    .data(links)
+    .join("line");
 
-  // Create a dictionary with 'id' as the key and the object itself as the value
-  const nodesDict = graphData.reduce((acc, obj) => {
-    acc[obj.id] = obj;
-    return acc;
-  }, {} as { [key: string]: (typeof graphData)[0] });
-  console.log(nodesDict);
-
-  select(svgRef.current)
+  const nodesG = select(svgRef.current)
     .select("g.nodes")
     .selectAll("a")
-    .data(graphData)
-    .join(
-      (enter: any): any => {
-        const a = enter.append("a");
-        a.transition(easeLinear)
-          .delay(500)
-          .duration(500)
-          .attr("transform", (d: any) => `translate(${d.x},${d.y})`);
-        a.append("circle")
-          .transition(easeLinear)
-          .delay(500)
-          .duration(500)
-          .attr("stroke", stroke)
-          .attr("stroke-width", strokeWidth)
-          .attr("stroke-opacity", strokeOpacity)
-          .attr("fill", (d: any) =>
-            d.fullyMeasured ? colors(d.score) : "gray"
-          )
-          .attr("fill-opacity", fillOpacity)
-          .attr("r", (d: any) => d.r);
-        a.append("title").text((d: any) => `${d.title}`);
-      },
-      (update: any): any => {
-        update
-          .transition(easeLinear)
-          .delay(500)
-          .duration(500)
-          .attr("transform", (d: any) => `translate(${d.x},${d.y})`);
-        update
-          .select("circle")
-          .transition(easeLinear)
-          .delay(500)
-          .duration(500)
-          .attr("stroke", stroke)
-          .attr("stroke-width", strokeWidth)
-          .attr("stroke-opacity", strokeOpacity)
-          .attr("fill", (d: any) =>
-            d.fullyMeasured ? colors(d.score) : "gray"
-          )
-          .attr("fill-opacity", fillOpacity)
-          .attr("r", (d: any) => d.r);
-        update.append("title").text((d: any) => `${d.title}`);
-      },
-      (exit: any): void => {
-        exit.transition(easeLinear).duration(500).remove();
-      }
-    );
+    .data(nodes)
+    .join("a");
 
-  select(svgRef.current)
-    .select("g.links")
-    .selectAll("line")
-    .data(data.links)
-    .join(
-      (enter: any): any => {
-        const l = enter.append("line");
-        l.transition(easeLinear)
-          .delay(500)
-          .duration(500)
-          .attr("stroke", "black")
-          .attr("stroke-width", 1)
-          .attr("x1", (d: any) => nodesDict[d.source].x)
-          .attr("y1", (d: any) => nodesDict[d.source].y)
-          .attr("x2", (d: any) => nodesDict[d.target].x)
-          .attr("y2", (d: any) => nodesDict[d.target].y);
-      },
-      (update: any): any => {
-        update
-          .transition(easeLinear)
-          .delay(500)
-          .duration(500)
-          .attr("x1", (d: any) => nodesDict[d.source].x)
-          .attr("y1", (d: any) => nodesDict[d.source].y)
-          .attr("x2", (d: any) => nodesDict[d.target].x)
-          .attr("y2", (d: any) => nodesDict[d.target].y);
-      },
-      (exit: any): void => {
-        exit.transition(easeLinear).duration(500).style("opacity", 0).remove();
-      }
-    );
+  nodesG
+    .append("circle")
+    .attr("fill", (d: any) => (d.fullyMeasured ? colors(d.score) : "gray"))
+    .attr("fill-opacity", fillOpacity)
+    .attr("r", () => Math.min(width, height) * 0.01)
+    .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+    .on("mouseleave", mouseleave);
+
+  simulation.on("tick", () => {
+    linksG
+      .attr("x1", (d: any) => d.source.x)
+      .attr("y1", (d: any) => d.source.y)
+      .attr("x2", (d: any) => d.target.x)
+      .attr("y2", (d: any) => d.target.y);
+
+    nodesG.attr("transform", (d) => `translate(${d.x}, ${d.y})`);
+  });
+
 }

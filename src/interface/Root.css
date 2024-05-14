@@ -36,7 +36,7 @@
 
 .individual-middle {
     flex: 0 0 1px;
-    background-color: #b6b6b6;
+    background-color: var(--bg);
     width: 1px;
 }
 
@@ -81,7 +81,7 @@
 
 .multi-input-sep {
     flex: 0 0 1px;
-    background-color: #b6b6b6;
+    background-color: var(--bg);
     height: 1px;
 }
 
@@ -93,7 +93,7 @@
 
 .multi-input-half-middle {
     flex: 0 0 1px;
-    background-color: #b6b6b6;
+    background-color: var(--bg);
     width: 1px;
 }
 

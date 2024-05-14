@@ -1,11 +1,12 @@
 import {
+  drag,
   forceCenter,
   forceCollide,
   forceLink,
   forceManyBody,
   forceSimulation,
   interpolateRdYlGn,
-  select
+  select,
 } from "d3";
 
 import { Data } from "./GraphData";
@@ -21,48 +22,25 @@ export function drawNetwork({
   height: number;
   svgRef: any;
 }) {
-
   const fillOpacity = 0.7;
   const colors = interpolateRdYlGn;
 
   const nodes = data.nodes.map((d) => Object.create(d));
   const links = data.links.map((d) => Object.create(d));
 
-  const tooltip = select(svgRef.current)
-  .select("g.nodes")
-    .append("div")
-    .style("opacity", 0)
-    .attr("class", "tooltip")
-    .style("background-color", "white")
-    .style("border", "solid")
-    .style("border-width", "2px")
-    .style("border-radius", "5px")
-    .style("padding", "5px")
-
-  // Three function that change the tooltip when user hover / move / leave a cell
-  const mouseover = function() {
-    tooltip
-      .style("opacity", 1);
-  }
-  const mousemove = function(event: any, d: any) {
-    tooltip
-      .html(d.title)
-      .style("left", event.pageX + 70 + "px")
-      .style("top", event.pageY + 70 + "px")
-  }
-  const mouseleave = function() {
-    tooltip
-      .style("opacity", 0);
-  }
-
   const simulation = forceSimulation(nodes)
-      .force(
-        "link",
-        forceLink(links).id((d: any) => d.id)
-      )
-      .force("charge", forceManyBody().strength(-10))
-      .force("collide", forceCollide(10))
-      .force("center", forceCenter(width / 2, height / 2));
+    .force(
+      "link",
+      forceLink(links).id((d: any) => d.id)
+    )
+    .force(
+      "charge",
+      forceManyBody()
+        .strength(-100)
+        .distanceMax(Math.min(width, height) * 0.18)
+    )
+    .force("collide", forceCollide(10))
+    .force("center", forceCenter(width / 2, height / 2));
 
   const linksG = select(svgRef.current)
     .select("g.links")
@@ -75,18 +53,44 @@ export function drawNetwork({
 
   const nodesG = select(svgRef.current)
     .select("g.nodes")
-    .selectAll("a")
+    .selectAll("circle")
     .data(nodes)
-    .join("a");
+    .join(
+      (enter) =>
+        enter
+          .append<SVGCircleElement>("circle")
+          .attr("fill", (d: any) =>
+            d.fullyMeasured ? colors(d.score) : "gray"
+          )
+          .attr("fill-opacity", fillOpacity)
+          .attr("r", 6)
+          .call(
+            drag<SVGCircleElement, any>()
+              .on("start", dragstarted)
+              .on("drag", dragged)
+              .on("end", dragended)
+          ),
+      (update) => update,
+      (exit) => exit.remove()
+    );
 
-  nodesG
-    .append("circle")
-    .attr("fill", (d: any) => (d.fullyMeasured ? colors(d.score) : "gray"))
-    .attr("fill-opacity", fillOpacity)
-    .attr("r", () => Math.min(width, height) * 0.01)
-    .on("mouseover", mouseover)
-    .on("mousemove", mousemove)
-    .on("mouseleave", mouseleave);
+  nodesG.append("title").text((d: any) => d.title);
+
+  function dragstarted(this: SVGCircleElement, event: DragEvent, d: any) {
+    select(this).raise().attr("stroke", "black");
+    simulation.alphaTarget(0.5).restart();
+  }
+
+  function dragged(this: SVGCircleElement, event: DragEvent, d: any) {
+    d.x = event.x;
+    d.y = event.y;
+    select(this).attr("cx", d.x).attr("cy", d.y);
+  }
+
+  function dragended(this: SVGCircleElement, event: DragEvent, d: any) {
+    select(this).attr("stroke", null);
+    simulation.alphaTarget(0);
+  }
 
   simulation.on("tick", () => {
     linksG
@@ -95,7 +99,6 @@ export function drawNetwork({
       .attr("x2", (d: any) => d.target.x)
       .attr("y2", (d: any) => d.target.y);
 
-    nodesG.attr("transform", (d) => `translate(${d.x}, ${d.y})`);
+    nodesG.attr("cx", (d: any) => d.x).attr("cy", (d: any) => d.y);
   });
-
 }

@@ -1,3 +1,18 @@
-.GraphScreen-stub {
-    width: 100%;
+.tooltip {
+    visibility: hidden;
+    background-color: var(--bg);
+    color: whitesmoke;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: var(--border-radius);
+    opacity: 0;
+    transition: opacity 0.3s;
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+}
+
+.tooltip:hover {
+    visibility: visible;
+    opacity: 1;
 }

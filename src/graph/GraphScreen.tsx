@@ -12,17 +12,18 @@ const GraphScreen = () => {
   useEffect(() => {
     const dataURL = "https://java.suken.io/humanfactor";
     let mounted = true;
-    // TODO: Use the data properly
     axios
       .get(dataURL, { headers: authHeader() })
       .then((data) => {
         if (mounted) {
+          // Build the link array using the affectsTo field
           const links = data.data.flatMap((node: any) =>
             node.affectsTo.map((affectedId: any) => ({
               source: node.id,
               target: affectedId,
             }))
           );
+          // Build the data array that Network expects
           const array: Data = {
             nodes: data.data,
             links: links

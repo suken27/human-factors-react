@@ -1,4 +1,5 @@
 import {
+  D3DragEvent,
   drag,
   forceCenter,
   forceCollide,
@@ -55,41 +56,43 @@ export function drawNetwork({
     .select("g.nodes")
     .selectAll("circle")
     .data(nodes)
-    .join(
-      (enter) =>
-        enter
-          .append<SVGCircleElement>("circle")
-          .attr("fill", (d: any) =>
-            d.fullyMeasured ? colors(d.score) : "gray"
-          )
-          .attr("fill-opacity", fillOpacity)
-          .attr("r", 6)
-          .call(
-            drag<SVGCircleElement, any>()
-              .on("start", dragstarted)
-              .on("drag", dragged)
-              .on("end", dragended)
-          ),
-      (update) => update,
-      (exit) => exit.remove()
-    );
+    .join<any>("circle")
+    .attr("fill", (d: any) => (d.fullyMeasured ? colors(d.score) : "gray"))
+    .attr("fill-opacity", fillOpacity)
+    .attr("r", 8);
+
+  nodesG.call(
+    drag<any, any>()
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended)
+  );
 
   nodesG.append("title").text((d: any) => d.title);
 
-  function dragstarted(this: SVGCircleElement, event: DragEvent, d: any) {
-    select(this).raise().attr("stroke", "black");
-    simulation.alphaTarget(0.5).restart();
+  function dragstarted(
+    this: SVGCircleElement,
+    event: D3DragEvent<SVGCircleElement, Node, any>
+  ) {
+    simulation.alphaTarget(0.3).restart();
+    event.subject.fx = event.subject.x;
+    event.subject.fy = event.subject.y;
+    select(this).attr("stroke", "black");
   }
 
-  function dragged(this: SVGCircleElement, event: DragEvent, d: any) {
-    d.x = event.x;
-    d.y = event.y;
-    select(this).attr("cx", d.x).attr("cy", d.y);
+  function dragged(event: D3DragEvent<SVGCircleElement, Node, any>) {
+    event.subject.fx = event.x;
+    event.subject.fy = event.y;
   }
 
-  function dragended(this: SVGCircleElement, event: DragEvent, d: any) {
-    select(this).attr("stroke", null);
+  function dragended(
+    this: SVGCircleElement,
+    event: D3DragEvent<SVGCircleElement, Node, any>
+  ) {
     simulation.alphaTarget(0);
+    event.subject.fx = null;
+    event.subject.fy = null;
+    select(this).attr("stroke", null);
   }
 
   simulation.on("tick", () => {
@@ -100,5 +103,6 @@ export function drawNetwork({
       .attr("y2", (d: any) => d.target.y);
 
     nodesG.attr("cx", (d: any) => d.x).attr("cy", (d: any) => d.y);
+    console.log("tick");
   });
 }

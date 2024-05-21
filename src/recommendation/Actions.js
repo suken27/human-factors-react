@@ -54,7 +54,7 @@ function ActionScreen() {
   }, []);
 
   return (
-    <div className="Actions">
+    <div className="Actions page">
       <div className="error" hidden={!actionsRetrieveError}>
         <h3 className="error">Retrieve error</h3>
       </div>

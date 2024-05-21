@@ -158,7 +158,7 @@ export const TeamScreen = () => {
 	}, []);
 
 	return (
-		<div className="TeamScreen">
+		<div className="TeamScreen page">
 			<div className="TeamScreen-members individual">
 				<h2>Team members</h2>
 				<div className="TeamScreen-members-error" hidden={!teamRetrieveError}>

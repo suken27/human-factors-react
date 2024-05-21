@@ -10,7 +10,7 @@ import {
   select,
 } from "d3";
 
-import { Data } from "./GraphData";
+import { Data, Node } from "./GraphData";
 
 export function drawNetwork({
   data,
@@ -23,7 +23,6 @@ export function drawNetwork({
   height: number;
   svgRef: any;
 }) {
-  const fillOpacity = 0.7;
   const colors = interpolateRdYlGn;
 
   const nodes = data.nodes.map((d) => Object.create(d));
@@ -58,7 +57,7 @@ export function drawNetwork({
     .data(nodes)
     .join<any>("circle")
     .attr("fill", (d: any) => (d.fullyMeasured ? colors(d.score) : "gray"))
-    .attr("fill-opacity", fillOpacity)
+    .attr("fill-opacity", 0.7)
     .attr("r", 8);
 
   nodesG.call(
@@ -68,7 +67,11 @@ export function drawNetwork({
       .on("end", dragended)
   );
 
-  nodesG.append("title").text((d: any) => d.title);
+  nodesG
+    .on("pointerenter pointermove", mouseover)
+    .on("pointerleave", mouseleft);
+
+  const tooltip = select(svgRef.current).select("g.tooltip");
 
   function dragstarted(
     this: SVGCircleElement,
@@ -95,6 +98,54 @@ export function drawNetwork({
     select(this).attr("stroke", null);
   }
 
+  function mouseover(this: SVGCircleElement, event: MouseEvent, d: Node) {
+    select(this).attr("r", 10);
+    tooltip
+      .attr("transform", `translate(${event.offsetX}, ${event.offsetY})`)
+      .style("display", null);
+
+    const rect = tooltip
+      .selectAll("rect")
+      .data([,])
+      .join("rect")
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("rx", 5)
+      .attr("ry", 5);
+
+    const text = tooltip
+      .selectAll("text")
+      .data([,])
+      .join("text")
+      .attr("fill", "var(--text-color)")
+      .call((text) =>
+        text
+          .selectAll("tspan")
+          .data(() => [d.title, d.fullyMeasured ? d.score : "Unmeasured"])
+          .join("tspan")
+          .attr("x", 0)
+          .attr("y", (_: any, i: any) => `${i * 1.1}em`)
+          .attr("font-weight", (_: any, i: any) => (i ? null : "bold"))
+          .text((d: any) => d)
+      );
+
+    size(text, rect);
+  }
+
+  function mouseleft(this: SVGCircleElement, event: MouseEvent) {
+    select(this).attr("r", 8);
+    tooltip.style("display", "none");
+  }
+
+  function size(text: any, rect: any) {
+    const { x, y, width: w, height: h } = text.node().getBBox();
+    text.attr("transform", `translate(${-w / 2},${y - 25})`);
+    rect
+      .attr("width", w + 20)
+      .attr("height", h + 10)
+      .attr("transform", `translate(${-w / 2 - 10},${y - 45})`);
+  }
+
   simulation.on("tick", () => {
     linksG
       .attr("x1", (d: any) => d.source.x)
@@ -103,6 +154,5 @@ export function drawNetwork({
       .attr("y2", (d: any) => d.target.y);
 
     nodesG.attr("cx", (d: any) => d.x).attr("cy", (d: any) => d.y);
-    console.log("tick");
   });
 }

@@ -17,7 +17,7 @@ export const Network = ({ data }: NetworkProps) => {
     function updateSize() {
       if (svgRef.current) {
         setWidth(window.innerWidth - 300);
-        setHeight(window.innerHeight - 150);
+        setHeight(window.innerHeight - 170);
       }
     }
     window.addEventListener("resize", updateSize);
@@ -33,8 +33,9 @@ export const Network = ({ data }: NetworkProps) => {
     <div className="flex1" style={{display: "flex", flexDirection: "column"}}>
       <div className="flex1" ref={svgRef}>
         <svg width={width} height={height}>
-          <g className="nodes" />
           <g className="links" />
+          <g className="nodes" />
+          <g className="tooltip" />
         </svg>
       </div>
     </div>

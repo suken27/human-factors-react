@@ -58,7 +58,7 @@ function SettingsScreen() {
 	}
 
 	return (
-		<div className="SettingsScreen">
+		<div className="SettingsScreen page-no-grow">
 			<h1 className="title">Settings</h1>
 			<div className="individual">
 				<div className="individual-left">

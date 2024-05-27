@@ -6,7 +6,8 @@ import AuthService from "../../authentication/AuthService";
 import { DropdownItem } from "./DropdownItem";
 import "./DropdownMenu.css";
 
-function handleLogout() {
+function handleLogout(event : React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+	event.preventDefault();
 	AuthService.logout();
 }
 

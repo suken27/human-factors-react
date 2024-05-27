@@ -142,7 +142,6 @@ export const TeamScreen = () => {
 			.catch((error) => {
 				if (error.response && error.response.status === 401) {
 					AuthService.logout();
-					window.location.href = "/login";
 					return;
 				}
 				setTeamRetrieveError(true);

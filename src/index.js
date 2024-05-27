@@ -20,7 +20,6 @@ const router = createBrowserRouter(
       element: <Root />,
       errorElement: <ErrorPage />,
       loader: () => {
-        console.log(AuthService.getCurrentUser());
         if(!AuthService.getCurrentUser() || AuthService.getCurrentUser() === undefined || AuthService.getCurrentUser() === "undefined") {
           console.log("redirection problem");
           return redirect("/login");

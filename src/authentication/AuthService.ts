@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 const API_URL = "https://java.suken.io/";
 
@@ -10,12 +10,12 @@ class AuthService {
             email,
             password,
           })
-          .then((response) => {
+          .then((response: AxiosResponse) => {
             localStorage.setItem("user", response.data.email);
             localStorage.setItem("token", response.data.token);
             resolve(response);
           })
-          .catch((error) => {
+          .catch((error : AxiosError) => {
             console.log(error);
             reject(error);
           });
@@ -25,6 +25,7 @@ class AuthService {
   logout() {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+    window.location.href = "/login";
   }
 
   register(email : string, password : string) {
@@ -35,10 +36,10 @@ class AuthService {
             email: email,
             password: password,
           })
-          .then((response) => {
+          .then((response: AxiosResponse) => {
             resolve(response);
           })
-          .catch((error) => {
+          .catch((error: AxiosError) => {
             console.log(error);
             reject(error);
           });

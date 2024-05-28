@@ -5,8 +5,7 @@ import AuthService from "../authentication/AuthService";
 import "./LoginScreen.css";
 
 export default function LoginScreen() {
-
-  const {default: users} = require("../svg/users.svg") as {default: string};
+  const { default: users } = require("../svg/users.svg") as { default: string };
 
   const navigate = useNavigate();
 
@@ -17,15 +16,15 @@ export default function LoginScreen() {
   const [loginError, setLoginError] = useState(false);
   const [unknownError, setUnknownError] = useState(false);
 
-  function handleEmailChange(e : any) {
+  function handleEmailChange(e: any) {
     setEmail(e.target.value);
   }
 
-  function handlePasswordChange(e : any) {
+  function handlePasswordChange(e: any) {
     setPassword(e.target.value);
   }
 
-  function handleSubmit(e : any) {
+  function handleSubmit(e: any) {
     e.preventDefault();
     if (!validator.isEmail(email)) {
       setEmailFormatError(true);
@@ -36,7 +35,7 @@ export default function LoginScreen() {
     setUnknownError(false);
     setStatus("submitting");
     AuthService.login(email, password)
-      .then(function(response) {
+      .then(function (response) {
         navigate("/team");
       })
       .catch(function (error) {

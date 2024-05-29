@@ -28,6 +28,8 @@ export function drawNetwork({
   const nodes = data.nodes.map((d) => Object.create(d));
   const links = data.links.map((d) => Object.create(d));
 
+  console.log(nodes);
+
   const simulation = forceSimulation(nodes)
     .force(
       "link",
@@ -56,7 +58,7 @@ export function drawNetwork({
     .selectAll("circle")
     .data(nodes)
     .join<any>("circle")
-    .attr("fill", (d: any) => (d.fullyMeasured ? colors(d.score) : "gray"))
+    .attr("fill", (d: any) => (d.score !== undefined && d.score !== "" && d.score !== null ? colors(d.score) : "gray"))
     .attr("fill-opacity", 0.7)
     .attr("r", 8);
 
@@ -121,7 +123,7 @@ export function drawNetwork({
       .call((text) =>
         text
           .selectAll("tspan")
-          .data(() => [d.title, d.fullyMeasured ? d.score : "Unmeasured"])
+          .data(() => [d.title, d.score !== undefined && d.score !== null ? d.score : "Unmeasured"])
           .join("tspan")
           .attr("x", 0)
           .attr("y", (_: any, i: any) => `${i * 1.1}em`)

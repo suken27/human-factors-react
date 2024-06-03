@@ -49,8 +49,7 @@
 
 .individual-middle {
     flex: 0 0 1px;
-    background-color: var(--bg);
-    width: 1px;
+    background-color: var(--border-color);
 }
 
 .individual-right {

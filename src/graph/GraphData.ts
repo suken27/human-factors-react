@@ -2,7 +2,6 @@ export interface Node extends d3.SimulationNodeDatum {
   id: number;
   title: string;
   cluster: string;
-  fullyMeasured: boolean;
   score: number;
 }
 

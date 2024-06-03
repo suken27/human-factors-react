@@ -39,7 +39,7 @@ export default function LoginScreen() {
         navigate("/team");
       })
       .catch(function (error) {
-        if (error.response && error.response.status === 400) {
+        if (error.response && error.response.status === 404) {
           setLoginError(true);
         } else {
           setUnknownError(true);

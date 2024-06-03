@@ -1,24 +1,24 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosHeaders, AxiosResponse } from "axios";
 
 const API_URL = "https://java.suken.io/";
 
 class AuthService {
-  login(email : string, password : string) {
+  login(email: string, password: string): Promise<AxiosResponse | AxiosError> {
     return new Promise((resolve, reject) => {
-        axios
-          .post(API_URL + "login", {
-            email,
-            password,
-          })
-          .then((response: AxiosResponse) => {
-            localStorage.setItem("user", response.data.email);
-            localStorage.setItem("token", response.data.token);
-            resolve(response);
-          })
-          .catch((error : AxiosError) => {
-            console.log(error);
-            reject(error);
-          });
+      axios
+        .post(API_URL + "login", {
+          email,
+          password,
+        })
+        .then((response: AxiosResponse) => {
+          localStorage.setItem("user", response.data.email);
+          localStorage.setItem("token", response.data.token);
+          resolve(response);
+        })
+        .catch((error: AxiosError) => {
+          console.log(error);
+          reject(error);
+        });
     });
   }
 
@@ -28,7 +28,10 @@ class AuthService {
     window.location.href = "/login";
   }
 
-  register(email : string, password : string) {
+  register(
+    email: string,
+    password: string
+  ): Promise<AxiosResponse | AxiosError> {
     return new Promise((resolve, reject) => {
       setTimeout(function () {
         axios
@@ -40,7 +43,7 @@ class AuthService {
             resolve(response);
           })
           .catch((error: AxiosError) => {
-            console.log(error);
+            console.debug(error);
             reject(error);
           });
       }, 1500);
@@ -50,6 +53,71 @@ class AuthService {
   getCurrentUser() {
     return localStorage.getItem("user");
   }
+
+  private manageError(error: AxiosError) {
+    if (error.response && error.response.status === 401) {
+      console.debug(
+        "Unauthorized, probably due to token expiration, logging out."
+      );
+      this.logout();
+      return;
+    }
+    console.error(error);
+  }
+
+  private addToken(headers: AxiosHeaders){
+    const token = localStorage.getItem("token");
+    if (token) {
+      headers["Authorization"] = "Bearer " + token;
+    }
+  }
+
+  get(url: string, headers: AxiosHeaders): Promise<AxiosResponse | AxiosError> {
+    this.addToken(headers);
+    return new Promise((resolve, reject) => {
+      axios
+        .get(API_URL + url, { headers: headers })
+        .then((response: AxiosResponse) => {
+          resolve(response);
+        })
+        .catch((error: AxiosError) => {
+          this.manageError(error);
+          reject(error);
+        });
+    });
+  }
+
+  post(url: string, data: any, headers: AxiosHeaders): Promise<AxiosResponse | AxiosError> {
+    this.addToken(headers);
+    return new Promise((resolve, reject) => {
+      axios
+        .post(API_URL + url, data, { headers: headers })
+        .then((response: AxiosResponse) => {
+          resolve(response);
+        })
+        .catch((error: AxiosError) => {
+          this.manageError(error);
+          reject(error);
+        });
+    });
+  }
+
+  put(url: string, data: any, headers: AxiosHeaders): Promise<AxiosResponse | AxiosError> {
+    this.addToken(headers);
+    return new Promise((resolve, reject) => {
+      axios
+        .put(API_URL + url, data, { headers: headers })
+        .then((response: AxiosResponse) => {
+          resolve(response);
+        })
+        .catch((error: AxiosError) => {
+          this.manageError(error);
+          reject(error);
+        });
+    });
+  }
+
 }
 
-export default new AuthService();
+const service = new AuthService();
+export default service;

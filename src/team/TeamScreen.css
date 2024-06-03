@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
-    border: 1px solid #b6b6b6;
-    border-radius: 5px;
+    border: var(--border);
+    border-radius: var(--border-radius);
     padding: 5px;
 }
 
@@ -45,17 +45,15 @@
 }
 
 .TeamScreen-members-error {
-    background-color: #fce6e6;
+    background-color: var(--error-bg);
     margin-bottom: 10px;
     padding: 10px;
-    border-width: 1px;
-    border-color: #a83030;
-    border-style: solid;
-    border-radius: 5px;
-    color: #a83030;
+    border: var(--error-border);
+    border-radius: var(--border-radius);
+    color: var(--error-color);
     text-align: left;
 }
 
 input[type="time" i]:hover {
-    border-color: gray;
+    border-color: var(--border-color);
 }

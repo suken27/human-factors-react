@@ -23,6 +23,9 @@ body {
 	--border: 1px solid var(--border-color);
 	--border-color: #b6b6b6;
 	--speed: 500ms;
+	--error-color: #a83030;
+	--error-border: 1px solid var(--error-color);
+	--error-bg: #fce6e6;
 }
 
 button:hover {

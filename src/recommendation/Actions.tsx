@@ -1,6 +1,6 @@
-import axios from "axios";
+import { AxiosHeaders } from "axios";
 import { ReactElement, useEffect, useState } from "react";
-import authHeader from "../authentication/authHeader";
+import AuthService from "../authentication/AuthService";
 import "./Actions.css";
 
 interface ActionProps {
@@ -31,7 +31,7 @@ function ActionList(props: ActionListProps) : ReactElement[] {
     console.error("ActionList: the action list parameter is empty, undefined or null");
     return rows;
   }
-  props.actions.sort(function (a, b) {
+  props.actions.sort((a, b) => {
     return b.score - a.score;
   });
   props.actions.forEach((action: ActionProps) => {
@@ -53,8 +53,8 @@ export default function ActionScreen() : ReactElement {
   const [anyActions, setAnyActions] = useState<boolean>(false);
 
   useEffect(() => {
-    axios
-      .get("https://java.suken.io/teams/actions", { headers: authHeader() })
+    AuthService
+      .get("teams/actions", new AxiosHeaders())
       .then((response) => {
         setActions(response.data);
         if (

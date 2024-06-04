@@ -57,7 +57,7 @@ export default function SignupScreen() {
     setSubmitting(true);
     AuthService.register(email, password)
       .then(() => navigate("/login"))
-      .catch(function (error) {
+      .catch((error) => {
         setSubmitting(false);
         if (error.response && error.response.status === 400) {
           setExistingUserError(true);

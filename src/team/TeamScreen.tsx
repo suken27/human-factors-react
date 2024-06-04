@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosHeaders, AxiosResponse } from "axios";
+import { AxiosError, AxiosHeaders, AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import validator from "validator";
 import AuthService from "../authentication/AuthService";
@@ -21,12 +21,10 @@ const TeamMember = ({
 
   function handleRemove() {
     setMemberRemovalError(false);
-    const postHeaders = authHeader();
-    postHeaders["Content-Type"] = "text/plain";
-    axios
-      .delete("https://java.suken.io/teams/" + email, {
-        headers: postHeaders,
-      })
+    const headers: AxiosHeaders = new AxiosHeaders();
+    headers["Content-Type"] = "text/plain";
+    AuthService
+      .delete("teams/" + email, headers)
       .then((response) => {
         setMembers(
           members.filter((value) => {
@@ -86,12 +84,10 @@ export const TeamScreen = () => {
     setEmailFormatError(false);
     setExistingMemberError(false);
     setMemberCreationError(false);
-    const postHeaders = authHeader();
-    postHeaders["Content-Type"] = "text/plain";
-    axios
-      .post("https://java.suken.io/teams", newMemberEmail, {
-        headers: postHeaders,
-      })
+    const headers : AxiosHeaders = new AxiosHeaders();
+    headers["Content-Type"] = "text/plain";
+    AuthService
+      .post("teams", newMemberEmail, headers)
       .then((response) => {
         setMembers(response.data);
         setNewMemberEmail("");
@@ -138,35 +134,30 @@ export const TeamScreen = () => {
   }
 
   useEffect(() => {
-    AuthService.request("https://java.suken.io/teams")
+    AuthService.get("teams", new AxiosHeaders())
       .then((response: AxiosResponse) => {
         setMembers(response.data.members);
         setQuestionTime(response.data.questionSendingTime);
       })
-      .catch((error: AxiosError) => {
+      .catch((error) => {
         setTeamRetrieveError(true);
       });
-    axios
-      .get("https://java.suken.io/teams", { headers: authHeader() })
+    AuthService
+      .get("teams", new AxiosHeaders())
       .then((response: AxiosResponse) => {
         setMembers(response.data.members);
         setQuestionTime(response.data.questionSendingTime);
       })
-      .catch((error: AxiosError) => {
-        if (error.response && error.response.status === 401) {
-          AuthService.logout();
-          return;
-        }
+      .catch((error) => {
         setTeamRetrieveError(true);
-        console.error(error);
       });
-    axios
-      .get("https://java.suken.io/user/integration", { headers: authHeader() })
+    AuthService
+      .get("user/integration", new AxiosHeaders())
       .then((response: AxiosResponse) => {
         setIntegrationCompleted(response.data);
       })
       .catch((error: AxiosError) => {
-        console.error(error);
+        // TODO: Handle error
       });
   }, []);
 

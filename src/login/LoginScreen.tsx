@@ -35,10 +35,10 @@ export default function LoginScreen() {
     setUnknownError(false);
     setStatus("submitting");
     AuthService.login(email, password)
-      .then(function (response) {
+      .then((response) => {
         navigate("/team");
       })
-      .catch(function (error) {
+      .catch((error) => {
         if (error.response && error.response.status === 404) {
           setLoginError(true);
         } else {

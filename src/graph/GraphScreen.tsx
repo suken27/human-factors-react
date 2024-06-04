@@ -1,6 +1,6 @@
-import axios from "axios";
+import { AxiosHeaders } from "axios";
 import { useEffect, useState } from "react";
-import authHeader from "../authentication/authHeader";
+import AuthService from "../authentication/AuthService";
 import { Data } from "./GraphData";
 import "./GraphScreen.css";
 import { Network } from "./Network";
@@ -10,10 +10,9 @@ const GraphScreen = () => {
   const [data, setData] = useState<Data>();
 
   useEffect(() => {
-    const dataURL = "https://java.suken.io/humanfactor";
     let mounted = true;
-    axios
-      .get(dataURL, { headers: authHeader() })
+    AuthService
+      .get("humanfactor", new AxiosHeaders())
       .then((data) => {
         if (mounted) {
           // Build the link array using the affectsTo field
@@ -30,12 +29,11 @@ const GraphScreen = () => {
           };
           setData(array);
           setLoading(false);
-          // TODO: Remove the console.log
-          console.log(data);
+          console.debug(data);
         }
       })
       .catch((error) => {
-        console.log(error);
+        // TODO: Handle error
       });
     return () => {
       mounted = false;

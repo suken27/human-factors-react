@@ -3,23 +3,19 @@ import axios, { AxiosError, AxiosHeaders, AxiosResponse } from "axios";
 const API_URL = "https://java.suken.io/";
 
 class AuthService {
-  login(email: string, password: string): Promise<AxiosResponse | AxiosError> {
-    return new Promise((resolve, reject) => {
-      axios
-        .post(API_URL + "login", {
-          email,
-          password,
-        })
-        .then((response: AxiosResponse) => {
-          localStorage.setItem("user", response.data.email);
-          localStorage.setItem("token", response.data.token);
-          resolve(response);
-        })
-        .catch((error: AxiosError) => {
-          console.log(error);
-          reject(error);
-        });
-    });
+  async login(email: string, password: string): Promise<AxiosResponse> {
+    try {
+      const response = await axios.post(API_URL + "login", {
+        email,
+        password,
+      });
+      localStorage.setItem("user", response.data.email);
+      localStorage.setItem("token", response.data.token);
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   logout() {
@@ -28,34 +24,28 @@ class AuthService {
     window.location.href = "/login";
   }
 
-  register(
-    email: string,
-    password: string
-  ): Promise<AxiosResponse | AxiosError> {
-    return new Promise((resolve, reject) => {
-      setTimeout(function () {
-        axios
-          .post(API_URL + "signup", {
-            email: email,
-            password: password,
-          })
-          .then((response: AxiosResponse) => {
-            resolve(response);
-          })
-          .catch((error: AxiosError) => {
-            console.debug(error);
-            reject(error);
-          });
-      }, 1500);
-    });
+  async register(email: string, password: string): Promise<AxiosResponse> {
+    try {
+      return await axios.post(API_URL + "signup", {
+        email,
+        password,
+      });
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   getCurrentUser() {
     return localStorage.getItem("user");
   }
 
-  private manageError(error: AxiosError) {
-    if (error.response && error.response.status === 401) {
+  private manageError(error: any) {
+    if (
+      error instanceof AxiosError &&
+      error.response &&
+      error.response.status === 401
+    ) {
       console.debug(
         "Unauthorized, probably due to token expiration, logging out."
       );
@@ -65,58 +55,64 @@ class AuthService {
     console.error(error);
   }
 
-  private addToken(headers: AxiosHeaders){
+  private addToken(headers: AxiosHeaders) {
     const token = localStorage.getItem("token");
     if (token) {
       headers["Authorization"] = "Bearer " + token;
     }
   }
 
-  get(url: string, headers: AxiosHeaders): Promise<AxiosResponse | AxiosError> {
+  async get(url: string, headers: AxiosHeaders): Promise<AxiosResponse> {
     this.addToken(headers);
-    return new Promise((resolve, reject) => {
-      axios
-        .get(API_URL + url, { headers: headers })
-        .then((response: AxiosResponse) => {
-          resolve(response);
-        })
-        .catch((error: AxiosError) => {
+    return axios
+      .get(API_URL + url, { headers: headers })
+      .catch((error: any) => {
+        if (error instanceof AxiosError) {
           this.manageError(error);
-          reject(error);
-        });
-    });
+        }
+        throw error;
+      });
   }
 
-  post(url: string, data: any, headers: AxiosHeaders): Promise<AxiosResponse | AxiosError> {
+  async post(
+    url: string,
+    data: any,
+    headers: AxiosHeaders
+  ): Promise<AxiosResponse> {
     this.addToken(headers);
-    return new Promise((resolve, reject) => {
-      axios
-        .post(API_URL + url, data, { headers: headers })
-        .then((response: AxiosResponse) => {
-          resolve(response);
-        })
-        .catch((error: AxiosError) => {
-          this.manageError(error);
-          reject(error);
-        });
-    });
+    try {
+      return await axios.post(API_URL + url, data, { headers: headers });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        this.manageError(error);
+      }
+      throw error;
+    }
   }
 
-  put(url: string, data: any, headers: AxiosHeaders): Promise<AxiosResponse | AxiosError> {
+  async put(
+    url: string,
+    data: any,
+    headers: AxiosHeaders
+  ): Promise<AxiosResponse> {
     this.addToken(headers);
-    return new Promise((resolve, reject) => {
-      axios
-        .put(API_URL + url, data, { headers: headers })
-        .then((response: AxiosResponse) => {
-          resolve(response);
-        })
-        .catch((error: AxiosError) => {
-          this.manageError(error);
-          reject(error);
-        });
-    });
+    return axios
+      .put(API_URL + url, data, { headers: headers })
+      .catch((error: any) => {
+        this.manageError(error);
+        throw error;
+      });
   }
 
+  async delete(url: string, headers: AxiosHeaders): Promise<AxiosResponse> {
+    this.addToken(headers);
+    return axios
+      .delete(API_URL + url, { headers: headers })
+      .catch((error: any) => {
+        this.manageError(error);
+        throw error;
+      });
+  }
 }
 
 const service = new AuthService();
